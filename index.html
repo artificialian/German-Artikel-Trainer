@@ -39,7 +39,13 @@
       <div class="score-label">Current Streak</div>
       <div id="score">0</div>
     </div>
+<!-- Add this toggle button -->
+<div class="chart-toggle-container">
+  <button id="chartToggle" onclick="toggleCharts()">📊 Show Charts</button>
+</div>
 
+<!-- Add id="chartContainer" to your existing chart container -->
+<div class="chart-container" id="chartContainer" style="display: none;">
    <div class="chart-container">
   <img id="chart-definite" class="chart" src="definite-articles-chart.png" alt="Definite Articles Chart" style="display: none;">
   <img id="chart-indefinite" class="chart" src="indefinite-articles-chart.png" alt="Indefinite Articles Chart" style="display: none;">
