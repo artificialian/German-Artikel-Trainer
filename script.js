@@ -86,7 +86,10 @@ let score = 0;
 
 function getNewQuestion() {
 const mode = document.getElementById("modeSelector").value;
+
+// Hide all charts and chart links
 document.querySelectorAll(".chart").forEach(img => img.style.display = "none");
+document.getElementById("chart-links").style.display = "none";
 
 let pool = [];
 if (mode === "definite") {
@@ -106,6 +109,10 @@ if (mode === "definite") {
   const chart = document.getElementById("chart-possessive");
   if (chart) chart.style.display = "block";
 } else if (mode === "mixed") {
+  // Show chart links for mixed mode
+  const chartLinks = document.getElementById("chart-links");
+  if (chartLinks) chartLinks.style.display = "block";
+  
   const roll = Math.random();
   if (roll < 0.2) pool = definiteArticles;
   else if (roll < 0.4) pool = indefiniteArticles;
