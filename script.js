@@ -224,7 +224,67 @@ const article = chart[caseChoice][genderChoice][pronounChoice];
 
 return [{ type: "Possessiv", case: caseChoice, gender: genderChoice, pronoun: pronounChoice, article }];
 }
+// Add these functions before the DOMContentLoaded event listener
 
+// Toggle function for showing/hiding charts
+function toggleCharts() {
+    const chartContainer = document.getElementById('chartContainer');
+    const chartLinks = document.getElementById('chart-links');
+    const toggleButton = document.getElementById('chartToggle');
+    
+    if (chartContainer.style.display === 'none' || chartContainer.style.display === '') {
+        // Show charts
+        chartContainer.style.display = 'block';
+        chartLinks.style.display = 'block';
+        toggleButton.textContent = '📊 Hide Charts';
+        toggleButton.classList.add('active');
+        
+        // Show the appropriate chart based on current mode
+        showCurrentModeChart();
+    } else {
+        // Hide charts
+        chartContainer.style.display = 'none';
+        chartLinks.style.display = 'none';
+        toggleButton.textContent = '📊 Show Charts';
+        toggleButton.classList.remove('active');
+    }
+}
+
+// Function to show the correct chart based on current mode
+function showCurrentModeChart() {
+    const currentMode = document.getElementById('modeSelector').value;
+    
+    // Hide all charts first
+    document.querySelectorAll('.chart').forEach(chart => {
+        chart.style.display = 'none';
+    });
+    
+    // Show the appropriate chart
+    switch(currentMode) {
+        case 'definite':
+            const defChart = document.getElementById('chart-definite');
+            if (defChart) defChart.style.display = 'block';
+            break;
+        case 'indefinite':
+            const indefChart = document.getElementById('chart-indefinite');
+            if (indefChart) indefChart.style.display = 'block';
+            break;
+        case 'personal':
+            const persChart = document.getElementById('chart-personal');
+            if (persChart) persChart.style.display = 'block';
+            break;
+        case 'possessive':
+            const possChart = document.getElementById('chart-possessive');
+            if (possChart) possChart.style.display = 'block';
+            break;
+        case 'mixed':
+            // Show all charts for mixed mode
+            document.querySelectorAll('.chart').forEach(chart => {
+                chart.style.display = 'block';
+            });
+            break;
+    }
+}
 // Initialize the app when the page loads
 document.addEventListener('DOMContentLoaded', function() {
   getNewQuestion();
