@@ -88,8 +88,21 @@ function getNewQuestion() {
 const mode = document.getElementById("modeSelector").value;
 
 // Hide all charts and chart links
-document.querySelectorAll(".chart").forEach(img => img.style.display = "none");
-document.getElementById("chart-links").style.display = "none";
+// Replace the chart visibility logic in getNewQuestion() with this:
+
+// Update charts if they're currently visible
+const chartContainer = document.getElementById('chartContainer');
+if (chartContainer && chartContainer.style.display === 'block') {
+    showCurrentModeChart();
+    
+    // Handle chart links for mixed mode
+    const chartLinks = document.getElementById('chart-links');
+    if (mode === 'mixed') {
+        if (chartLinks) chartLinks.style.display = 'block';
+    } else {
+        if (chartLinks) chartLinks.style.display = 'none';
+    }
+}
 
 let pool = [];
 if (mode === "definite") {
