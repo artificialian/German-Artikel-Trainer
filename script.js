@@ -99,6 +99,8 @@ if (mode === "definite") {
   if (chart) chart.style.display = "block";
 } else if (mode === "personal") {
   pool = personalPronouns;
+  const chart = document.getElementById("chart-personal");
+  if (chart) chart.style.display = "block";
 } else if (mode === "possessive") {
   pool = generatePossessive();
   const chart = document.getElementById("chart-possessive");
