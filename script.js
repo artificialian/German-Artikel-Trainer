@@ -1,4 +1,3 @@
-
 // -------------------------
 // 🔠 German Artikel Trainer Logic
 // -------------------------
@@ -85,82 +84,64 @@ let current = {};
 let score = 0;
 
 function getNewQuestion() {
-const mode = document.getElementById("modeSelector").value;
+  const mode = document.getElementById("modeSelector").value;
 
-// Hide all charts and chart links
-// Replace the chart visibility logic in getNewQuestion() with this:
-
-// Update charts if they're currently visible
-const chartContainer = document.getElementById('chartContainer');
-if (chartContainer && chartContainer.style.display === 'block') {
-    showCurrentModeChart();
-    
-    // Handle chart links for mixed mode
-    const chartLinks = document.getElementById('chart-links');
-    if (mode === 'mixed') {
-        if (chartLinks) chartLinks.style.display = 'block';
-    } else {
-        if (chartLinks) chartLinks.style.display = 'none';
+  // Update charts if they're currently visible (only for non-mixed modes)
+  const chartContainer = document.getElementById('chartContainer');
+  if (chartContainer && chartContainer.style.display === 'block') {
+    if (mode !== 'mixed') {
+      showCurrentModeChart();
     }
-}
+  }
 
-let pool = [];
-if (mode === "definite") {
-  pool = definiteArticles;
-  const chart = document.getElementById("chart-definite");
-  if (chart) chart.style.display = "block";
-} else if (mode === "indefinite") {
-  pool = indefiniteArticles;
-  const chart = document.getElementById("chart-indefinite");
-  if (chart) chart.style.display = "block";
-} else if (mode === "personal") {
-  pool = personalPronouns;
-  const chart = document.getElementById("chart-personal");
-  if (chart) chart.style.display = "block";
-} else if (mode === "possessive") {
-  pool = generatePossessive();
-  const chart = document.getElementById("chart-possessive");
-  if (chart) chart.style.display = "block";
-} else if (mode === "mixed") {
-  // Show chart links for mixed mode
-  const chartLinks = document.getElementById("chart-links");
-  if (chartLinks) chartLinks.style.display = "block";
-  
-  const roll = Math.random();
-  if (roll < 0.2) pool = definiteArticles;
-  else if (roll < 0.4) pool = indefiniteArticles;
-  else if (roll < 0.6) pool = personalPronouns;
-  else pool = generatePossessive();
-}
+  let pool = [];
+  if (mode === "definite") {
+    pool = definiteArticles;
+  } else if (mode === "indefinite") {
+    pool = indefiniteArticles;
+  } else if (mode === "personal") {
+    pool = personalPronouns;
+  } else if (mode === "possessive") {
+    pool = generatePossessive();
+  } else if (mode === "mixed") {
+    const roll = Math.random();
+    if (roll < 0.2) pool = definiteArticles;
+    else if (roll < 0.4) pool = indefiniteArticles;
+    else if (roll < 0.6) pool = personalPronouns;
+    else pool = generatePossessive();
+  }
 
-current = pool[Math.floor(Math.random() * pool.length)];
+  current = pool[Math.floor(Math.random() * pool.length)];
 
-let label = current.type || mode.charAt(0).toUpperCase() + mode.slice(1);
-const questionElement = document.getElementById("question");
+  let label = current.type || mode.charAt(0).toUpperCase() + mode.slice(1);
+  const questionElement = document.getElementById("question");
 
-if (mode === "personal") {
-  questionElement.innerHTML = `
-    <span class="question-element">${label}</span>
-    <span class="question-element">${current.case}</span>
-    <span class="question-element">${current.pronoun}</span>
-  `;
-} else if (mode === "possessive") {
-  questionElement.innerHTML = `
-    <span class="question-element">${label}</span>
-    <span class="question-element">${current.case}</span>
-    <span class="question-element">${current.pronoun}</span>
-    <span class="question-element">${current.gender}</span>
-  `;
-} else {
-  questionElement.innerHTML = `
-    <span class="question-element">${label}</span>
-    <span class="question-element">${current.case}</span>
-    <span class="question-element">${current.gender}</span>
-  `;
-}
+  if (mode === "personal") {
+    questionElement.innerHTML = `
+      <span class="question-element">${label}</span>
+      <span class="question-element">${current.case}</span>
+      <span class="question-element">${current.pronoun}</span>
+    `;
+  } else if (mode === "possessive") {
+    questionElement.innerHTML = `
+      <span class="question-element">${label}</span>
+      <span class="question-element">${current.case}</span>
+      <span class="question-element">${current.pronoun}</span>
+      <span class="question-element">${current.gender}</span>
+    `;
+  } else {
+    questionElement.innerHTML = `
+      <span class="question-element">${label}</span>
+      <span class="question-element">${current.case}</span>
+      <span class="question-element">${current.gender}</span>
+    `;
+  }
 
-document.getElementById("answer").value = "";
-document.getElementById("feedback").textContent = "";
+  // Update toggle button visibility and chart/links visibility based on mode
+  updateToggleVisibility();
+
+  document.getElementById("answer").value = "";
+  document.getElementById("feedback").textContent = "";
 }
 
 function checkAnswer() {
@@ -194,110 +175,140 @@ function checkAnswer() {
 }
 
 function handleKeyPress(event) {
-if (event.key === "Enter") {
-  checkAnswer();
-}
+  if (event.key === "Enter") {
+    checkAnswer();
+  }
 }
 
 function generatePossessive() {
-const chart = {
-  Nominativ: {
-    Maskulin: { ich: "mein", du: "dein", er: "sein", sie: "ihr", es: "sein", wir: "unser", ihr: "euer", sie: "ihr" },
-    Feminin: { ich: "meine", du: "deine", er: "seine", sie: "ihre", es: "seine", wir: "unsere", ihr: "eure", sie: "ihre" },
-    Neutrum: { ich: "mein", du: "dein", er: "sein", sie: "ihr", es: "sein", wir: "unser", ihr: "euer", sie: "ihr" },
-    Plural: { ich: "meine", du: "deine", er: "seine", sie: "ihre", es: "seine", wir: "unsere", ihr: "eure", sie: "ihre" }
-  },
-  Akkusativ: {
-    Maskulin: { ich: "meinen", du: "deinen", er: "seinen", sie: "ihren", es: "seinen", wir: "unseren", ihr: "euren", sie: "ihren" },
-    Feminin: { ich: "meine", du: "deine", er: "seine", sie: "ihre", es: "seine", wir: "unsere", ihr: "eure", sie: "ihre" },
-    Neutrum: { ich: "mein", du: "dein", er: "sein", sie: "ihr", es: "sein", wir: "unser", ihr: "euer", sie: "ihr" },
-    Plural: { ich: "meine", du: "deine", er: "seine", sie: "ihre", es: "seine", wir: "unsere", ihr: "eure", sie: "ihre" }
-  },
-  Dativ: {
-    Maskulin: { ich: "meinem", du: "deinem", er: "seinem", sie: "ihrem", es: "seinem", wir: "unserem", ihr: "eurem", sie: "ihrem" },
-    Feminin: { ich: "meiner", du: "deiner", er: "seiner", sie: "ihrer", es: "seiner", wir: "unserer", ihr: "eurer", sie: "ihrer" },
-    Neutrum: { ich: "meinem", du: "deinem", er: "seinem", sie: "ihrem", es: "seinem", wir: "unserem", ihr: "eurem", sie: "ihrem" },
-    Plural: { ich: "meinen", du: "deinen", er: "seinen", sie: "ihren", es: "seinen", wir: "unseren", ihr: "euren", sie: "ihren" }
-  },
-  Genitiv: {
-    Maskulin: { ich: "meines", du: "deines", er: "seines", sie: "ihres", es: "seines", wir: "unseres", ihr: "eures", sie: "ihres" },
-    Feminin: { ich: "meiner", du: "deiner", er: "seiner", sie: "ihrer", es: "seiner", wir: "unserer", ihr: "eurer", sie: "ihrer" },
-    Neutrum: { ich: "eines", du: "deines", er: "seines", sie: "ihres", es: "seines", wir: "unseres", ihr: "eures", sie: "ihres" },
-    Plural: { ich: "meiner", du: "deiner", er: "seiner", sie: "ihrer", es: "seiner", wir: "unserer", ihr: "eurer", sie: "ihrer" }
-  }
-};
-
-const cases = Object.keys(chart);
-const caseChoice = cases[Math.floor(Math.random() * cases.length)];
-const genders = Object.keys(chart[caseChoice]);
-const genderChoice = genders[Math.floor(Math.random() * genders.length)];
-const pronouns = Object.keys(chart[caseChoice][genderChoice]);
-const pronounChoice = pronouns[Math.floor(Math.random() * pronouns.length)];
-const article = chart[caseChoice][genderChoice][pronounChoice];
-
-return [{ type: "Possessiv", case: caseChoice, gender: genderChoice, pronoun: pronounChoice, article }];
-}
-// Add these functions before the DOMContentLoaded event listener
-
-// Toggle function for showing/hiding charts
-function toggleCharts() {
-    const chartContainer = document.getElementById('chartContainer');
-    const chartLinks = document.getElementById('chart-links');
-    const toggleButton = document.getElementById('chartToggle');
-    
-    if (chartContainer.style.display === 'none' || chartContainer.style.display === '') {
-        // Show charts
-        chartContainer.style.display = 'block';
-        chartLinks.style.display = 'block';
-        toggleButton.textContent = '📊 Hide Charts';
-        toggleButton.classList.add('active');
-        
-        // Show the appropriate chart based on current mode
-        showCurrentModeChart();
-    } else {
-        // Hide charts
-        chartContainer.style.display = 'none';
-        chartLinks.style.display = 'none';
-        toggleButton.textContent = '📊 Show Charts';
-        toggleButton.classList.remove('active');
+  const chart = {
+    Nominativ: {
+      Maskulin: { ich: "mein", du: "dein", er: "sein", sie: "ihr", es: "sein", wir: "unser", ihr: "euer", sie: "ihr" },
+      Feminin: { ich: "meine", du: "deine", er: "seine", sie: "ihre", es: "seine", wir: "unsere", ihr: "eure", sie: "ihre" },
+      Neutrum: { ich: "mein", du: "dein", er: "sein", sie: "ihr", es: "sein", wir: "unser", ihr: "euer", sie: "ihr" },
+      Plural: { ich: "meine", du: "deine", er: "seine", sie: "ihre", es: "seine", wir: "unsere", ihr: "eure", sie: "ihre" }
+    },
+    Akkusativ: {
+      Maskulin: { ich: "meinen", du: "deinen", er: "seinen", sie: "ihren", es: "seinen", wir: "unseren", ihr: "euren", sie: "ihren" },
+      Feminin: { ich: "meine", du: "deine", er: "seine", sie: "ihre", es: "seine", wir: "unsere", ihr: "eure", sie: "ihre" },
+      Neutrum: { ich: "mein", du: "dein", er: "sein", sie: "ihr", es: "sein", wir: "unser", ihr: "euer", sie: "ihr" },
+      Plural: { ich: "meine", du: "deine", er: "seine", sie: "ihre", es: "seine", wir: "unsere", ihr: "eure", sie: "ihre" }
+    },
+    Dativ: {
+      Maskulin: { ich: "meinem", du: "deinem", er: "seinem", sie: "ihrem", es: "seinem", wir: "unserem", ihr: "eurem", sie: "ihrem" },
+      Feminin: { ich: "meiner", du: "deiner", er: "seiner", sie: "ihrer", es: "seiner", wir: "unserer", ihr: "eurer", sie: "ihrer" },
+      Neutrum: { ich: "meinem", du: "deinem", er: "seinem", sie: "ihrem", es: "seinem", wir: "unserem", ihr: "eurem", sie: "ihrem" },
+      Plural: { ich: "meinen", du: "deinen", er: "seinen", sie: "ihren", es: "seinen", wir: "unseren", ihr: "euren", sie: "ihren" }
+    },
+    Genitiv: {
+      Maskulin: { ich: "meines", du: "deines", er: "seines", sie: "ihres", es: "seines", wir: "unseres", ihr: "eures", sie: "ihres" },
+      Feminin: { ich: "meiner", du: "deiner", er: "seiner", sie: "ihrer", es: "seiner", wir: "unserer", ihr: "eurer", sie: "ihrer" },
+      Neutrum: { ich: "eines", du: "deines", er: "seines", sie: "ihres", es: "seines", wir: "unseres", ihr: "eures", sie: "ihres" },
+      Plural: { ich: "meiner", du: "deiner", er: "seiner", sie: "ihrer", es: "seiner", wir: "unserer", ihr: "eurer", sie: "ihrer" }
     }
+  };
+
+  const cases = Object.keys(chart);
+  const caseChoice = cases[Math.floor(Math.random() * cases.length)];
+  const genders = Object.keys(chart[caseChoice]);
+  const genderChoice = genders[Math.floor(Math.random() * genders.length)];
+  const pronouns = Object.keys(chart[caseChoice][genderChoice]);
+  const pronounChoice = pronouns[Math.floor(Math.random() * pronouns.length)];
+  const article = chart[caseChoice][genderChoice][pronounChoice];
+
+  return [{ type: "Possessiv", case: caseChoice, gender: genderChoice, pronoun: pronounChoice, article }];
+}
+
+// Toggle function for showing/hiding charts (only for non-mixed modes)
+function toggleCharts() {
+  const currentMode = document.getElementById('modeSelector').value;
+  
+  // Don't allow toggling for mixed mode
+  if (currentMode === 'mixed') {
+    return;
+  }
+  
+  const chartContainer = document.getElementById('chartContainer');
+  const toggleButton = document.getElementById('chartToggle');
+  
+  if (chartContainer.style.display === 'none' || chartContainer.style.display === '') {
+    // Show charts
+    chartContainer.style.display = 'block';
+    toggleButton.textContent = 'Hide Charts';
+    toggleButton.classList.add('active');
+    
+    // Show the appropriate chart based on current mode
+    showCurrentModeChart();
+  } else {
+    // Hide charts
+    chartContainer.style.display = 'none';
+    toggleButton.textContent = 'Show Charts';
+    toggleButton.classList.remove('active');
+  }
 }
 
 // Function to show the correct chart based on current mode
 function showCurrentModeChart() {
-    const currentMode = document.getElementById('modeSelector').value;
-    
-    // Hide all charts first
-    document.querySelectorAll('.chart').forEach(chart => {
-        chart.style.display = 'none';
-    });
-    
-    // Show the appropriate chart
-    switch(currentMode) {
-        case 'definite':
-            const defChart = document.getElementById('chart-definite');
-            if (defChart) defChart.style.display = 'block';
-            break;
-        case 'indefinite':
-            const indefChart = document.getElementById('chart-indefinite');
-            if (indefChart) indefChart.style.display = 'block';
-            break;
-        case 'personal':
-            const persChart = document.getElementById('chart-personal');
-            if (persChart) persChart.style.display = 'block';
-            break;
-        case 'possessive':
-            const possChart = document.getElementById('chart-possessive');
-            if (possChart) possChart.style.display = 'block';
-            break;
-        case 'mixed':
-            // Show all charts for mixed mode
-            document.querySelectorAll('.chart').forEach(chart => {
-                chart.style.display = 'block';
-            });
-            break;
-    }
+  const currentMode = document.getElementById('modeSelector').value;
+  
+  // Hide all charts and links first
+  document.querySelectorAll('.chart').forEach(chart => {
+    chart.style.display = 'none';
+  });
+  
+  const chartLinks = document.getElementById('chart-links');
+  if (chartLinks) chartLinks.style.display = 'none';
+  
+  // Show the appropriate chart (no links for non-mixed modes)
+  switch(currentMode) {
+    case 'definite':
+      const defChart = document.getElementById('chart-definite');
+      if (defChart) defChart.style.display = 'block';
+      break;
+    case 'indefinite':
+      const indefChart = document.getElementById('chart-indefinite');
+      if (indefChart) indefChart.style.display = 'block';
+      break;
+    case 'personal':
+      const persChart = document.getElementById('chart-personal');
+      if (persChart) persChart.style.display = 'block';
+      break;
+    case 'possessive':
+      const possChart = document.getElementById('chart-possessive');
+      if (possChart) possChart.style.display = 'block';
+      break;
+  }
 }
+
+// Function to update toggle button visibility based on current mode
+function updateToggleVisibility() {
+  const currentMode = document.getElementById('modeSelector').value;
+  const toggleContainer = document.querySelector('.chart-toggle-container');
+  const chartContainer = document.getElementById('chartContainer');
+  const chartLinks = document.getElementById('chart-links');
+  
+  if (currentMode === 'mixed') {
+    // Hide toggle button for mixed mode
+    if (toggleContainer) toggleContainer.style.display = 'none';
+    
+    // Always show links for mixed mode, hide charts
+    if (chartLinks) chartLinks.style.display = 'block';
+    if (chartContainer) {
+      chartContainer.style.display = 'block';
+      // Hide all individual charts
+      document.querySelectorAll('.chart').forEach(chart => {
+        chart.style.display = 'none';
+      });
+    }
+  } else {
+    // Show toggle button for other modes
+    if (toggleContainer) toggleContainer.style.display = 'block';
+    
+    // Always hide links for non-mixed modes
+    if (chartLinks) chartLinks.style.display = 'none';
+  }
+}
+
 // Initialize the app when the page loads
 document.addEventListener('DOMContentLoaded', function() {
   getNewQuestion();
