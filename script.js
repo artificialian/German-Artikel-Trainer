@@ -142,26 +142,33 @@ document.getElementById("feedback").textContent = "";
 }
 
 function checkAnswer() {
-const userAnswer = document.getElementById("answer").value.toLowerCase().trim();
-const feedback = document.getElementById("feedback");
-const scoreDisplay = document.getElementById("score");
+  const userAnswer = document.getElementById("answer").value.toLowerCase().trim();
+  const feedback = document.getElementById("feedback");
+  const scoreDisplay = document.getElementById("score");
 
-// Clear previous feedback classes
-feedback.classList.remove("show", "correct", "incorrect");
+  // Clear previous feedback classes
+  feedback.classList.remove("show", "correct", "incorrect");
 
-if (userAnswer === current.article) {
-  feedback.textContent = "🎉 Richtig!";
-  feedback.classList.add("show", "correct");
-  score++;
-  scoreDisplay.textContent = score;
-  setTimeout(getNewQuestion, 1200);
-} else {
-  feedback.textContent = `❌ Falsch! Richtige Antwort: "${current.article}"`;
-  feedback.classList.add("show", "incorrect");
-  score = 0;
-  scoreDisplay.textContent = score;
-  setTimeout(getNewQuestion, 2000);
-}
+  // Check if answer is empty
+  if (userAnswer === "") {
+    feedback.textContent = "⚠️ Please enter an answer!";
+    feedback.classList.add("show", "incorrect");
+    return; // Exit the function early, don't proceed with checking
+  }
+
+  if (userAnswer === current.article) {
+    feedback.textContent = "🎉 Richtig!";
+    feedback.classList.add("show", "correct");
+    score++;
+    scoreDisplay.textContent = score;
+    setTimeout(getNewQuestion, 1200);
+  } else {
+    feedback.textContent = `❌ Falsch! Richtige Antwort: "${current.article}"`;
+    feedback.classList.add("show", "incorrect");
+    score = 0;
+    scoreDisplay.textContent = score;
+    setTimeout(getNewQuestion, 2000);
+  }
 }
 
 function handleKeyPress(event) {
