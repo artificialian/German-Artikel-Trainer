@@ -196,7 +196,10 @@ select:focus {
 #score {
   font-size: 32px;
   font-weight: 700;
-  color: #212529;
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .chart {
@@ -371,16 +374,16 @@ select:focus {
   }
 }
 
-/* Simplified chart toggle styles */
+/* Chart toggle styles with switched states */
 .chart-toggle-container {
   text-align: center;
   margin: 20px 0;
 }
 
 #chartToggle {
-  background: #f8f9fa;
-  color: #495057;
-  border: 1px solid #dee2e6;
+  background: #e7f3ff;
+  color: #0056b3;
+  border: 1px solid #007bff;
   padding: 8px 16px;
   border-radius: 8px;
   font-size: 14px;
@@ -390,14 +393,19 @@ select:focus {
 }
 
 #chartToggle:hover {
-  background: #e9ecef;
-  border-color: #adb5bd;
+  background: #d1ecf1;
+  border-color: #0056b3;
 }
 
 #chartToggle.active {
-  background: #e7f3ff;
-  color: #0056b3;
-  border-color: #007bff;
+  background: #f8f9fa;
+  color: #495057;
+  border-color: #dee2e6;
+}
+
+#chartToggle.active:hover {
+  background: #e9ecef;
+  border-color: #adb5bd;
 }
 
 #chartContainer {
