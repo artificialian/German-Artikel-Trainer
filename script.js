@@ -1,5 +1,3 @@
-// --- script.js (Plain JS version) ---
-
 // Data arrays
 const definiteArticles = [
   { type: "Bestimmte", case: "Nominativ", gender: "Maskulin", article: "der" },
@@ -110,24 +108,31 @@ function generatePossessive() {
   return [{ type: "Possessiv", case: caseChoice, gender: genderChoice, pronoun: pronounChoice, article }];
 }
 
-// State
+// State variables
 let mode = "definite";
 let current = {};
 let score = 0;
 
-// DOM Elements
-const modeSelector = document.getElementById("modeSelector");
-const questionDiv = document.getElementById("question");
-const answerInput = document.getElementById("answer");
-const feedbackDiv = document.getElementById("feedback");
-const scoreDiv = document.getElementById("score");
-const chartToggleButton = document.getElementById("chartToggle");
-const chartContainer = document.getElementById("chartContainer");
-const chartLinks = document.getElementById("chart-links");
-const chartDefinite = document.getElementById("chart-definite");
-const chartIndefinite = document.getElementById("chart-indefinite");
-const chartPersonal = document.getElementById("chart-personal");
-const chartPossessive = document.getElementById("chart-possessive");
+// DOM Elements - will be initialized after DOM loads
+let modeSelector, questionDiv, answerInput, feedbackDiv, scoreDiv;
+let chartToggleButton, chartContainer, chartLinks;
+let chartDefinite, chartIndefinite, chartPersonal, chartPossessive;
+
+// Initialize DOM elements
+function initializeDOMElements() {
+  modeSelector = document.getElementById("modeSelector");
+  questionDiv = document.getElementById("question");
+  answerInput = document.getElementById("answer");
+  feedbackDiv = document.getElementById("feedback");
+  scoreDiv = document.getElementById("score");
+  chartToggleButton = document.getElementById("chartToggle");
+  chartContainer = document.getElementById("chartContainer");
+  chartLinks = document.getElementById("chart-links");
+  chartDefinite = document.getElementById("chart-definite");
+  chartIndefinite = document.getElementById("chart-indefinite");
+  chartPersonal = document.getElementById("chart-personal");
+  chartPossessive = document.getElementById("chart-possessive");
+}
 
 function renderQuestion() {
   if (!current.type) {
@@ -181,11 +186,13 @@ function getNewQuestion() {
       pool = generatePossessive();
     }
   }
+  
   if (!pool || pool.length === 0) {
     current = {};
     renderQuestion();
     return;
   }
+  
   current = pool[Math.floor(Math.random() * pool.length)];
   answerInput.value = "";
   feedbackDiv.textContent = "";
@@ -200,6 +207,7 @@ function checkAnswer() {
     feedbackDiv.className = "show incorrect";
     return;
   }
+  
   if (userAnswer === current.article) {
     feedbackDiv.textContent = "🎉 Richtig!";
     feedbackDiv.className = "show correct";
@@ -224,19 +232,29 @@ function handleKeyPress(event) {
 // Chart toggling
 function toggleCharts() {
   if (mode === "mixed") return;
-  let show = chartContainer.style.display === "none";
-  chartContainer.style.display = show ? "block" : "none";
-  chartLinks.style.display = show ? "block" : "none";
-  chartToggleButton.classList.toggle("active", show);
+  
+  let isVisible = chartContainer.style.display !== "none";
+  
+  if (isVisible) {
+    // Hide charts
+    chartContainer.style.display = "none";
+    chartLinks.style.display = "none";
+    chartToggleButton.classList.remove("active");
+    chartToggleButton.textContent = "Show Charts";
+  } else {
+    // Show charts
+    chartContainer.style.display = "block";
+    chartLinks.style.display = "block";
+    chartToggleButton.classList.add("active");
+    chartToggleButton.textContent = "Hide Charts";
+    
+    // Hide all charts first
+    chartDefinite.style.display = "none";
+    chartIndefinite.style.display = "none";
+    chartPersonal.style.display = "none";
+    chartPossessive.style.display = "none";
 
-  // Hide all charts first
-  chartDefinite.style.display = "none";
-  chartIndefinite.style.display = "none";
-  chartPersonal.style.display = "none";
-  chartPossessive.style.display = "none";
-
-  // Show the relevant chart
-  if (show) {
+    // Show the relevant chart
     if (mode === "definite") chartDefinite.style.display = "block";
     if (mode === "indefinite") chartIndefinite.style.display = "block";
     if (mode === "personal") chartPersonal.style.display = "block";
@@ -244,22 +262,31 @@ function toggleCharts() {
   }
 }
 
-// On mode change
-modeSelector.addEventListener("change", function () {
+// Event handlers
+function handleModeChange() {
   mode = modeSelector.value;
   score = 0;
   scoreDiv.textContent = score;
+  
+  // Hide charts when mode changes
   chartContainer.style.display = "none";
   chartLinks.style.display = "none";
   chartToggleButton.classList.remove("active");
+  chartToggleButton.textContent = "Show Charts";
+  
   getNewQuestion();
-});
+}
 
-answerInput.addEventListener("keypress", handleKeyPress);
-chartToggleButton.addEventListener("click", toggleCharts);
-
-// Initialize
-window.onload = function () {
+// Initialize everything when DOM is loaded
+window.onload = function() {
+  initializeDOMElements();
+  
+  // Add event listeners
+  modeSelector.addEventListener("change", handleModeChange);
+  answerInput.addEventListener("keypress", handleKeyPress);
+  chartToggleButton.addEventListener("click", toggleCharts);
+  
+  // Set initial state
   chartContainer.style.display = "none";
   chartLinks.style.display = "none";
   getNewQuestion();
