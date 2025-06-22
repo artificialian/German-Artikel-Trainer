@@ -147,6 +147,11 @@ const GermanArtikelTrainer = () => {
       }
     }
 
+    if (!pool || pool.length === 0) {
+    setCurrent({});
+    return;
+  }
+
     const newCurrent = pool[Math.floor(Math.random() * pool.length)];
     setCurrent(newCurrent);
     setAnswer('');
