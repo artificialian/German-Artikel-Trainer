@@ -1,83 +1,80 @@
-// -------------------------
-// 🔠 German Artikel Trainer Logic
-// -------------------------
-
+// German Artikel Trainer Logic
 const definiteArticles = [
-{ type: "Bestimmte", case: "Nominativ", gender: "Maskulin", article: "der" },
-{ type: "Bestimmte", case: "Nominativ", gender: "Feminin", article: "die" },
-{ type: "Bestimmte", case: "Nominativ", gender: "Neutrum", article: "das" },
-{ type: "Bestimmte", case: "Nominativ", gender: "Plural", article: "die" },
+  { type: "Bestimmte", case: "Nominativ", gender: "Maskulin", article: "der" },
+  { type: "Bestimmte", case: "Nominativ", gender: "Feminin", article: "die" },
+  { type: "Bestimmte", case: "Nominativ", gender: "Neutrum", article: "das" },
+  { type: "Bestimmte", case: "Nominativ", gender: "Plural", article: "die" },
 
-{ type: "Bestimmte", case: "Akkusativ", gender: "Maskulin", article: "den" },
-{ type: "Bestimmte", case: "Akkusativ", gender: "Feminin", article: "die" },
-{ type: "Bestimmte", case: "Akkusativ", gender: "Neutrum", article: "das" },
-{ type: "Bestimmte", case: "Akkusativ", gender: "Plural", article: "die" },
+  { type: "Bestimmte", case: "Akkusativ", gender: "Maskulin", article: "den" },
+  { type: "Bestimmte", case: "Akkusativ", gender: "Feminin", article: "die" },
+  { type: "Bestimmte", case: "Akkusativ", gender: "Neutrum", article: "das" },
+  { type: "Bestimmte", case: "Akkusativ", gender: "Plural", article: "die" },
 
-{ type: "Bestimmte", case: "Dativ", gender: "Maskulin", article: "dem" },
-{ type: "Bestimmte", case: "Dativ", gender: "Feminin", article: "der" },
-{ type: "Bestimmte", case: "Dativ", gender: "Neutrum", article: "dem" },
-{ type: "Bestimmte", case: "Dativ", gender: "Plural", article: "den" },
+  { type: "Bestimmte", case: "Dativ", gender: "Maskulin", article: "dem" },
+  { type: "Bestimmte", case: "Dativ", gender: "Feminin", article: "der" },
+  { type: "Bestimmte", case: "Dativ", gender: "Neutrum", article: "dem" },
+  { type: "Bestimmte", case: "Dativ", gender: "Plural", article: "den" },
 
-{ type: "Bestimmte", case: "Genitiv", gender: "Maskulin", article: "des" },
-{ type: "Bestimmte", case: "Genitiv", gender: "Feminin", article: "der" },
-{ type: "Bestimmte", case: "Genitiv", gender: "Neutrum", article: "des" },
-{ type: "Bestimmte", case: "Genitiv", gender: "Plural", article: "der" },
+  { type: "Bestimmte", case: "Genitiv", gender: "Maskulin", article: "des" },
+  { type: "Bestimmte", case: "Genitiv", gender: "Feminin", article: "der" },
+  { type: "Bestimmte", case: "Genitiv", gender: "Neutrum", article: "des" },
+  { type: "Bestimmte", case: "Genitiv", gender: "Plural", article: "der" },
 ];
 
 const indefiniteArticles = [
-{ type: "Unbestimmte", case: "Nominativ", gender: "Maskulin", article: "ein" },
-{ type: "Unbestimmte", case: "Nominativ", gender: "Feminin", article: "eine" },
-{ type: "Unbestimmte", case: "Nominativ", gender: "Neutrum", article: "ein" },
+  { type: "Unbestimmte", case: "Nominativ", gender: "Maskulin", article: "ein" },
+  { type: "Unbestimmte", case: "Nominativ", gender: "Feminin", article: "eine" },
+  { type: "Unbestimmte", case: "Nominativ", gender: "Neutrum", article: "ein" },
 
-{ type: "Unbestimmte", case: "Akkusativ", gender: "Maskulin", article: "einen" },
-{ type: "Unbestimmte", case: "Akkusativ", gender: "Feminin", article: "eine" },
-{ type: "Unbestimmte", case: "Akkusativ", gender: "Neutrum", article: "ein" },
+  { type: "Unbestimmte", case: "Akkusativ", gender: "Maskulin", article: "einen" },
+  { type: "Unbestimmte", case: "Akkusativ", gender: "Feminin", article: "eine" },
+  { type: "Unbestimmte", case: "Akkusativ", gender: "Neutrum", article: "ein" },
 
-{ type: "Unbestimmte", case: "Dativ", gender: "Maskulin", article: "einem" },
-{ type: "Unbestimmte", case: "Dativ", gender: "Feminin", article: "einer" },
-{ type: "Unbestimmte", case: "Dativ", gender: "Neutrum", article: "einem" },
+  { type: "Unbestimmte", case: "Dativ", gender: "Maskulin", article: "einem" },
+  { type: "Unbestimmte", case: "Dativ", gender: "Feminin", article: "einer" },
+  { type: "Unbestimmte", case: "Dativ", gender: "Neutrum", article: "einem" },
 
-{ type: "Unbestimmte", case: "Genitiv", gender: "Maskulin", article: "eines" },
-{ type: "Unbestimmte", case: "Genitiv", gender: "Feminin", article: "einer" },
-{ type: "Unbestimmte", case: "Genitiv", gender: "Neutrum", article: "eines" },
+  { type: "Unbestimmte", case: "Genitiv", gender: "Maskulin", article: "eines" },
+  { type: "Unbestimmte", case: "Genitiv", gender: "Feminin", article: "einer" },
+  { type: "Unbestimmte", case: "Genitiv", gender: "Neutrum", article: "eines" },
 ];
 
 const personalPronouns = [
-{ pronoun: "ich", case: "Nominativ", article: "ich" },
-{ pronoun: "du", case: "Nominativ", article: "du" },
-{ pronoun: "er", case: "Nominativ", article: "er" },
-{ pronoun: "sie", case: "Nominativ", article: "sie" },
-{ pronoun: "es", case: "Nominativ", article: "es" },
-{ pronoun: "wir", case: "Nominativ", article: "wir" },
-{ pronoun: "ihr", case: "Nominativ", article: "ihr" },
-{ pronoun: "sie", case: "Nominativ", article: "sie" },
+  { pronoun: "ich", case: "Nominativ", article: "ich" },
+  { pronoun: "du", case: "Nominativ", article: "du" },
+  { pronoun: "er", case: "Nominativ", article: "er" },
+  { pronoun: "sie", case: "Nominativ", article: "sie" },
+  { pronoun: "es", case: "Nominativ", article: "es" },
+  { pronoun: "wir", case: "Nominativ", article: "wir" },
+  { pronoun: "ihr", case: "Nominativ", article: "ihr" },
+  { pronoun: "sie", case: "Nominativ", article: "sie" },
 
-{ pronoun: "ich", case: "Akkusativ", article: "mich" },
-{ pronoun: "du", case: "Akkusativ", article: "dich" },
-{ pronoun: "er", case: "Akkusativ", article: "ihn" },
-{ pronoun: "sie", case: "Akkusativ", article: "sie" },
-{ pronoun: "es", case: "Akkusativ", article: "es" },
-{ pronoun: "wir", case: "Akkusativ", article: "uns" },
-{ pronoun: "ihr", case: "Akkusativ", article: "euch" },
-{ pronoun: "sie", case: "Akkusativ", article: "sie" },
+  { pronoun: "ich", case: "Akkusativ", article: "mich" },
+  { pronoun: "du", case: "Akkusativ", article: "dich" },
+  { pronoun: "er", case: "Akkusativ", article: "ihn" },
+  { pronoun: "sie", case: "Akkusativ", article: "sie" },
+  { pronoun: "es", case: "Akkusativ", article: "es" },
+  { pronoun: "wir", case: "Akkusativ", article: "uns" },
+  { pronoun: "ihr", case: "Akkusativ", article: "euch" },
+  { pronoun: "sie", case: "Akkusativ", article: "sie" },
 
-{ pronoun: "ich", case: "Dativ", article: "mir" },
-{ pronoun: "du", case: "Dativ", article: "dir" },
-{ pronoun: "er", case: "Dativ", article: "ihm" },
-{ pronoun: "sie", case: "Dativ", article: "ihr" },
-{ pronoun: "es", case: "Dativ", article: "ihm" },
-{ pronoun: "wir", case: "Dativ", article: "uns" },
-{ pronoun: "ihr", case: "Dativ", article: "euch" },
-{ pronoun: "sie", case: "Dativ", article: "ihnen" },
+  { pronoun: "ich", case: "Dativ", article: "mir" },
+  { pronoun: "du", case: "Dativ", article: "dir" },
+  { pronoun: "er", case: "Dativ", article: "ihm" },
+  { pronoun: "sie", case: "Dativ", article: "ihr" },
+  { pronoun: "es", case: "Dativ", article: "ihm" },
+  { pronoun: "wir", case: "Dativ", article: "uns" },
+  { pronoun: "ihr", case: "Dativ", article: "euch" },
+  { pronoun: "sie", case: "Dativ", article: "ihnen" },
 
-{ pronoun: "ich", case: "Genitiv", article: "meiner" },
-{ pronoun: "du", case: "Genitiv", article: "deiner" },
-{ pronoun: "er", case: "Genitiv", article: "seiner" },
-{ pronoun: "sie", case: "Genitiv", article: "ihrer" },
-{ pronoun: "es", case: "Genitiv", article: "seiner" },
-{ pronoun: "wir", case: "Genitiv", article: "unser" },
-{ pronoun: "ihr", case: "Genitiv", article: "euer" },
-{ pronoun: "sie", case: "Genitiv", article: "ihrer" }
+  { pronoun: "ich", case: "Genitiv", article: "meiner" },
+  { pronoun: "du", case: "Genitiv", article: "deiner" },
+  { pronoun: "er", case: "Genitiv", article: "seiner" },
+  { pronoun: "sie", case: "Genitiv", article: "ihrer" },
+  { pronoun: "es", case: "Genitiv", article: "seiner" },
+  { pronoun: "wir", case: "Genitiv", article: "unser" },
+  { pronoun: "ihr", case: "Genitiv", article: "euer" },
+  { pronoun: "sie", case: "Genitiv", article: "ihrer" }
 ];
 
 let current = {}; 
@@ -151,7 +148,7 @@ function checkAnswer() {
   if (userAnswer === "") {
     feedback.textContent = "⚠️ Please enter an answer!";
     feedback.classList.add("show", "incorrect");
-    return; // Exit the function early, don't proceed with checking
+    return;
   }
 
   if (userAnswer === current.article) {
@@ -214,7 +211,6 @@ function generatePossessive() {
   return [{ type: "Possessiv", case: caseChoice, gender: genderChoice, pronoun: pronounChoice, article }];
 }
 
-// Function to hide charts and reset toggle button
 function hideCharts() {
   const chartContainer = document.getElementById('chartContainer');
   const toggleButton = document.getElementById('chartToggle');
@@ -227,18 +223,11 @@ function hideCharts() {
     toggleButton.textContent = '📊 Show Charts';
     toggleButton.classList.remove('active');
   }
-  
-  // Hide all individual charts
-  document.querySelectorAll('.chart').forEach(chart => {
-    chart.style.display = 'none';
-  });
 }
 
-// Toggle function for showing/hiding charts (only for non-mixed modes)
 function toggleCharts() {
   const currentMode = document.getElementById('modeSelector').value;
   
-  // Don't allow toggling for mixed mode
   if (currentMode === 'mixed') {
     return;
   }
@@ -247,84 +236,300 @@ function toggleCharts() {
   const toggleButton = document.getElementById('chartToggle');
   
   if (chartContainer.style.display === 'none' || chartContainer.style.display === '') {
-    // Show charts
     chartContainer.style.display = 'block';
     toggleButton.textContent = '📊 Hide Charts';
     toggleButton.classList.add('active');
     
-    // Show the appropriate chart based on current mode
     showCurrentModeChart();
   } else {
-    // Hide charts
     hideCharts();
   }
 }
 
-// Function to show the correct chart based on current mode
 function showCurrentModeChart() {
   const currentMode = document.getElementById('modeSelector').value;
+  const chartContent = document.getElementById('chart-content');
   
-  // Hide all charts and links first
-  document.querySelectorAll('.chart').forEach(chart => {
-    chart.style.display = 'none';
-  });
+  let tableHTML = '';
   
-  const chartLinks = document.getElementById('chart-links');
-  if (chartLinks) chartLinks.style.display = 'none';
-  
-  // Show the appropriate chart (no links for non-mixed modes)
   switch(currentMode) {
     case 'definite':
-      const defChart = document.getElementById('chart-definite');
-      if (defChart) defChart.style.display = 'block';
+      tableHTML = `
+        <h3>Bestimmte Artikel (Definite Articles)</h3>
+        <table class="chart-table">
+          <thead>
+            <tr>
+              <th>Fall</th>
+              <th>Maskulin</th>
+              <th>Feminin</th>
+              <th>Neutrum</th>
+              <th>Plural</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Nominativ</strong></td>
+              <td>der</td>
+              <td>die</td>
+              <td>das</td>
+              <td>die</td>
+            </tr>
+            <tr>
+              <td><strong>Akkusativ</strong></td>
+              <td>den</td>
+              <td>die</td>
+              <td>das</td>
+              <td>die</td>
+            </tr>
+            <tr>
+              <td><strong>Dativ</strong></td>
+              <td>dem</td>
+              <td>der</td>
+              <td>dem</td>
+              <td>den</td>
+            </tr>
+            <tr>
+              <td><strong>Genitiv</strong></td>
+              <td>des</td>
+              <td>der</td>
+              <td>des</td>
+              <td>der</td>
+            </tr>
+          </tbody>
+        </table>
+      `;
       break;
+    
     case 'indefinite':
-      const indefChart = document.getElementById('chart-indefinite');
-      if (indefChart) indefChart.style.display = 'block';
+      tableHTML = `
+        <h3>Unbestimmte Artikel (Indefinite Articles)</h3>
+        <table class="chart-table">
+          <thead>
+            <tr>
+              <th>Fall</th>
+              <th>Maskulin</th>
+              <th>Feminin</th>
+              <th>Neutrum</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Nominativ</strong></td>
+              <td>ein</td>
+              <td>eine</td>
+              <td>ein</td>
+            </tr>
+            <tr>
+              <td><strong>Akkusativ</strong></td>
+              <td>einen</td>
+              <td>eine</td>
+              <td>ein</td>
+            </tr>
+            <tr>
+              <td><strong>Dativ</strong></td>
+              <td>einem</td>
+              <td>einer</td>
+              <td>einem</td>
+            </tr>
+            <tr>
+              <td><strong>Genitiv</strong></td>
+              <td>eines</td>
+              <td>einer</td>
+              <td>eines</td>
+            </tr>
+          </tbody>
+        </table>
+      `;
       break;
+    
     case 'personal':
-      const persChart = document.getElementById('chart-personal');
-      if (persChart) persChart.style.display = 'block';
+      tableHTML = `
+        <h3>Personalpronomen (Personal Pronouns)</h3>
+        <table class="chart-table">
+          <thead>
+            <tr>
+              <th>Pronoun</th>
+              <th>Nominativ</th>
+              <th>Akkusativ</th>
+              <th>Dativ</th>
+              <th>Genitiv</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>ich</strong></td>
+              <td>ich</td>
+              <td>mich</td>
+              <td>mir</td>
+              <td>meiner</td>
+            </tr>
+            <tr>
+              <td><strong>du</strong></td>
+              <td>du</td>
+              <td>dich</td>
+              <td>dir</td>
+              <td>deiner</td>
+            </tr>
+            <tr>
+              <td><strong>er</strong></td>
+              <td>er</td>
+              <td>ihn</td>
+              <td>ihm</td>
+              <td>seiner</td>
+            </tr>
+            <tr>
+              <td><strong>sie</strong></td>
+              <td>sie</td>
+              <td>sie</td>
+              <td>ihr</td>
+              <td>ihrer</td>
+            </tr>
+            <tr>
+              <td><strong>es</strong></td>
+              <td>es</td>
+              <td>es</td>
+              <td>ihm</td>
+              <td>seiner</td>
+            </tr>
+            <tr>
+              <td><strong>wir</strong></td>
+              <td>wir</td>
+              <td>uns</td>
+              <td>uns</td>
+              <td>unser</td>
+            </tr>
+            <tr>
+              <td><strong>ihr</strong></td>
+              <td>ihr</td>
+              <td>euch</td>
+              <td>euch</td>
+              <td>euer</td>
+            </tr>
+            <tr>
+              <td><strong>sie</strong></td>
+              <td>sie</td>
+              <td>sie</td>
+              <td>ihnen</td>
+              <td>ihrer</td>
+            </tr>
+          </tbody>
+        </table>
+      `;
       break;
+    
     case 'possessive':
-      const possChart = document.getElementById('chart-possessive');
-      if (possChart) possChart.style.display = 'block';
+      tableHTML = `
+        <h3>Possessivpronomen (Possessive Pronouns)</h3>
+        <p style="margin-bottom: 20px; color: #495057; font-size: 14px;">Examples shown for Nominativ case. Forms change with case and gender.</p>
+        <table class="chart-table">
+          <thead>
+            <tr>
+              <th>Pronoun</th>
+              <th>Maskulin</th>
+              <th>Feminin</th>
+              <th>Neutrum</th>
+              <th>Plural</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>ich</strong></td>
+              <td>mein</td>
+              <td>meine</td>
+              <td>mein</td>
+              <td>meine</td>
+            </tr>
+            <tr>
+              <td><strong>du</strong></td>
+              <td>dein</td>
+              <td>deine</td>
+              <td>dein</td>
+              <td>deine</td>
+            </tr>
+            <tr>
+              <td><strong>er</strong></td>
+              <td>sein</td>
+              <td>seine</td>
+              <td>sein</td>
+              <td>seine</td>
+            </tr>
+            <tr>
+              <td><strong>sie</strong></td>
+              <td>ihr</td>
+              <td>ihre</td>
+              <td>ihr</td>
+              <td>ihre</td>
+            </tr>
+            <tr>
+              <td><strong>es</strong></td>
+              <td>sein</td>
+              <td>seine</td>
+              <td>sein</td>
+              <td>seine</td>
+            </tr>
+            <tr>
+              <td><strong>wir</strong></td>
+              <td>unser</td>
+              <td>unsere</td>
+              <td>unser</td>
+              <td>unsere</td>
+            </tr>
+            <tr>
+              <td><strong>ihr</strong></td>
+              <td>euer</td>
+              <td>eure</td>
+              <td>euer</td>
+              <td>eure</td>
+            </tr>
+            <tr>
+              <td><strong>sie</strong></td>
+              <td>ihr</td>
+              <td>ihre</td>
+              <td>ihr</td>
+              <td>ihre</td>
+            </tr>
+          </tbody>
+        </table>
+      `;
       break;
+    
+    default:
+      tableHTML = '<p>No chart available for this mode.</p>';
+  }
+  
+  chartContent.innerHTML = tableHTML;
+  
+  // Show chart links
+  const chartLinks = document.getElementById('chart-links');
+  if (chartLinks) {
+    chartLinks.style.display = 'block';
   }
 }
 
-// Function to update toggle button visibility based on current mode
 function updateToggleVisibility() {
   const currentMode = document.getElementById('modeSelector').value;
-  const toggleContainer = document.querySelector('.chart-toggle-container');
+  const toggleButton = document.getElementById('chartToggle');
   const chartContainer = document.getElementById('chartContainer');
-  const chartLinks = document.getElementById('chart-links');
   
   if (currentMode === 'mixed') {
-    // Hide toggle button for mixed mode
-    if (toggleContainer) toggleContainer.style.display = 'none';
-    
-    // Always show links for mixed mode, hide charts
-    if (chartLinks) chartLinks.style.display = 'block';
-    if (chartContainer) {
-      chartContainer.style.display = 'block';
-      // Hide all individual charts
-      document.querySelectorAll('.chart').forEach(chart => {
-        chart.style.display = 'none';
-      });
-    }
+    // Hide toggle button and charts for mixed mode
+    toggleButton.style.display = 'none';
+    chartContainer.style.display = 'none';
   } else {
     // Show toggle button for other modes
-    if (toggleContainer) toggleContainer.style.display = 'block';
-    
-    // Always hide links for non-mixed modes
-    if (chartLinks) chartLinks.style.display = 'none';
+    toggleButton.style.display = 'inline-block';
   }
 }
 
-// Initialize the app when the page loads
+// Initialize the game when the page loads
 document.addEventListener('DOMContentLoaded', function() {
-  // Ensure charts are hidden on initial load
-  hideCharts();
   getNewQuestion();
+  
+  // Focus on the answer input
+  document.getElementById('answer').focus();
 });
+
+// Add click handler for the submit button (if you want to add one)
+function submitAnswer() {
+  checkAnswer();
+}
