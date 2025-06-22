@@ -1,17 +1,376 @@
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>German Artikel Trainer</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  min-height: 100vh;
+  padding: 20px;
+  color: #212529;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  text-align: center;
+  color: #495057;
+  font-size: 16px;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.info-link {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.info-link a {
+  color: #007bff;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: all 0.3s ease;
+}
+
+.info-link a:hover {
+  color: #0056b3;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.mode-selector {
+  margin-bottom: 32px;
+}
+
+.mode-selector label {
+  display: block;
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #212529;
+}
+
+select {
+  width: 100%;
+  font-size: 17px;
+  padding: 16px 20px;
+  border: 2px solid #ced4da;
+  border-radius: 16px;
+  background: #ffffff;
+  color: #212529;
+  font-weight: 500;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23495057' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 16px center;
+  background-repeat: no-repeat;
+  background-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+select:focus {
+  outline: none;
+  background: #ffffff;
+  border-color: #007bff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 123, 255, 0.15);
+}
+
+.question-card {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 32px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 123, 255, 0.3);
+}
+
+#question {
+  font-size: 24px;
+  font-weight: 600;
+  color: white;
+  line-height: 1.6;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.question-element {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-weight: 700;
+  min-width: 120px;
+  backdrop-filter: blur(10px);
+}
+
+.input-container {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+#answer {
+  width: 100%;
+  font-size: 18px;
+  padding: 18px 20px;
+  border: 2px solid #ced4da;
+  border-radius: 16px;
+  background: #ffffff;
+  color: #212529;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+#answer:focus {
+  outline: none;
+  background: #ffffff;
+  border-color: #007bff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 123, 255, 0.15);
+}
+
+#answer::placeholder {
+  color: #6c757d;
+  font-weight: 400;
+}
+
+.feedback-container {
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+#feedback {
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  padding: 12px 20px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+#feedback.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#feedback.correct {
+  background: rgba(40, 167, 69, 0.1);
+  color: #28a745;
+}
+
+#feedback.incorrect {
+  background: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
+}
+
+.score-container {
+  text-align: center;
+  padding: 20px;
+  background: #f8f9fa;
+  border: 2px solid #e9ecef;
+  border-radius: 16px;
+  margin-bottom: 32px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.score-label {
+  font-size: 15px;
+  color: #495057;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+#score {
+  font-size: 32px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.chart {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  display: block;
+}
+
+.chart-container {
+  text-align: center;
+  margin-top: 32px;
+}
+
+#chart-links {
+  margin-top: 32px;
+}
+
+.chart-link {
+  display: block;
+  margin-bottom: 12px;
+  padding: 16px 20px;
+  background: #ffffff;
+  color: #212529;
+  border-radius: 16px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: 2px solid #e9ecef;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.chart-link:hover {
+  background: #f8f9fa;
+  border-color: #007bff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 123, 255, 0.15);
+  color: #007bff;
+}
+
+.chart-link:last-child {
+  margin-bottom: 0;
+}
+
+/* Chart toggle styles */
+.chart-toggle-container {
+  text-align: center;
+  margin: 20px 0;
+}
+
+#chartToggle {
+  background: #e7f3ff;
+  color: #0056b3;
+  border: 1px solid #007bff;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#chartToggle:hover {
+  background: #d1ecf1;
+  border-color: #0056b3;
+}
+
+#chartToggle.active {
+  background: #f8f9fa;
+  color: #495057;
+  border-color: #dee2e6;
+}
+
+#chartToggle.active:hover {
+  background: #e9ecef;
+  border-color: #adb5bd;
+}
+
+#chartContainer {
+  margin-top: 20px;
+  padding: 20px;
+  background: rgba(248, 249, 250, 0.8);
+  border-radius: 16px;
+  border: 2px solid #e9ecef;
+}
+
+/* Responsive design */
+@media (max-width: 900px) {
+  .container {
+    max-width: 600px;
+    padding: 32px;
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 16px;
+  }
+  
+  .container {
+    padding: 24px 20px;
+    border-radius: 12px;
+  }
+  
+  h1 {
+    font-size: 24px;
+  }
+  
+  #question {
+    font-size: 18px;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .question-element {
+    min-width: 100px;
+  }
+  
+  #answer {
+    font-size: 16px;
+    padding: 16px 18px;
+  }
+  
+  .info-link a {
+    font-size: 15px;
+  }
+}
+  </style>
 </head>
 <body>
   <div class="container">
     <h1>🧠 German Artikel Trainer</h1>
     <p class="subtitle">Master German articles with style</p>
-
+    <p class="info-link">
+      <a href="https://github.com/yourusername/german-artikel-trainer" target="_blank" rel="noopener noreferrer">
+        More about this game →
+      </a>
+    </p>
     <div class="mode-selector">
       <label for="modeSelector">Choose your challenge:</label>
       <select id="modeSelector" onchange="getNewQuestion()">
@@ -22,48 +381,64 @@
         <option value="mixed">Gemischt (Alle)</option>
       </select>
     </div>
-
     <div class="question-card">
       <div id="question">Loading...</div>
     </div>
-
     <div class="input-container">
       <input id="answer" placeholder="Your answer..." onkeypress="handleKeyPress(event)">
     </div>
-
     <div class="feedback-container">
       <div id="feedback"></div>
     </div>
-
     <div class="score-container">
       <div class="score-label">Current Streak</div>
       <div id="score">0</div>
     </div>
-<!-- Add this toggle button -->
-<div class="chart-toggle-container">
-  <button id="chartToggle" onclick="toggleCharts()">📊 Show Charts</button>
-</div>
-
-<!-- Add id="chartContainer" to your existing chart container -->
-<div class="chart-container" id="chartContainer" style="display: none;">
-   <div class="chart-container">
-  <img id="chart-definite" class="chart" src="definite-articles-chart.png" alt="Definite Articles Chart" style="display: none;">
-  <img id="chart-indefinite" class="chart" src="indefinite-articles-chart.png" alt="Indefinite Articles Chart" style="display: none;">
-  <img id="chart-personal" class="chart" src="personalpronomen-chart.png" alt="Personal Pronouns Chart" style="display: none;">
-  <img id="chart-possessive" class="chart" src="possessive-chart.png" alt="Possessive Chart" style="display: none;">
-</div>
-<div id="chart-links" style="display: none;">
-  <a class="chart-link" href="https://germanwithlaura.com/definite-indefinite-articles/" target="_blank">
-    📘 Bestimmte & Unbestimmte Artikel
-  </a>
-  <a class="chart-link" href="https://www.gradding.com/blog/german/possessive-pronouns" target="_blank">
-    🔐 Possessivpronomen
-  </a>
-  <a class="chart-link" href="https://de.tingroom.com/wap/index.php?moduleid=33&itemid=51112" target="_blank">
-    👤 Personalpronomen
-  </a>
-</div>
+    <div class="chart-toggle-container">
+      <button id="chartToggle" onclick="toggleCharts()">📊 Show Charts</button>
+    </div>
+    <div class="chart-container" id="chartContainer" style="display: none;">
+      <div class="chart-container">
+        <img id="chart-definite" class="chart" src="definite-articles-chart.png" alt="Definite Articles Chart" style="display: none;">
+        <img id="chart-indefinite" class="chart" src="indefinite-articles-chart.png" alt="Indefinite Articles Chart" style="display: none;">
+        <img id="chart-personal" class="chart" src="personalpronomen-chart.png" alt="Personal Pronouns Chart" style="display: none;">
+        <img id="chart-possessive" class="chart" src="possessive-chart.png" alt="Possessive Chart" style="display: none;">
+      </div>
+      <div id="chart-links" style="display: none;">
+        <a class="chart-link" href="https://germanwithlaura.com/definite-indefinite-articles/" target="_blank">
+          📘 Bestimmte & Unbestimmte Artikel
+        </a>
+        <a class="chart-link" href="https://www.gradding.com/blog/german/possessive-pronouns" target="_blank">
+          🔐 Possessivpronomen
+        </a>
+        <a class="chart-link" href="https://de.tingroom.com/wap/index.php?moduleid=33&itemid=51112" target="_blank">
+          👤 Personalpronomen
+        </a>
+      </div>
+    </div>
   </div>
-  <script src="script.js"></script>
-</body>
-</html>
+  <script>
+// -------------------------
+// 🔠 German Artikel Trainer Logic
+// -------------------------
+
+const definiteArticles = [
+{ type: "Bestimmte", case: "Nominativ", gender: "Maskulin", article: "der" },
+{ type: "Bestimmte", case: "Nominativ", gender: "Feminin", article: "die" },
+{ type: "Bestimmte", case: "Nominativ", gender: "Neutrum", article: "das" },
+{ type: "Bestimmte", case: "Nominativ", gender: "Plural", article: "die" },
+
+{ type: "Bestimmte", case: "Akkusativ", gender: "Maskulin", article: "den" },
+{ type: "Bestimmte", case: "Akkusativ", gender: "Feminin", article: "die" },
+{ type: "Bestimmte", case: "Akkusativ", gender: "Neutrum", article: "das" },
+{ type: "Bestimmte", case: "Akkusativ", gender: "Plural", article: "die" },
+
+{ type: "Bestimmte", case: "Dativ", gender: "Maskulin", article: "dem" },
+{ type: "Bestimmte", case: "Dativ", gender: "Feminin", article: "der" },
+{ type: "Bestimmte", case: "Dativ", gender: "Neutrum", article: "dem" },
+{ type: "Bestimmte", case: "Dativ", gender: "Plural", article: "den" },
+
+{ type: "Bestimmte", case: "Genitiv", gender: "Maskulin", article: "des" },
+{ type: "Bestimmte", case: "Genitiv", gender: "Feminin", article: "der" },
+{ type: "Bestimmte", case: "Genitiv", gender: "Neutrum", article: "des" },
+{ type:
