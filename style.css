@@ -37,8 +37,29 @@ h1 {
   text-align: center;
   color: #495057;
   font-size: 16px;
-  margin-bottom: 32px;
+  margin-bottom: 8px;
   font-weight: 500;
+}
+
+.info-link {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.info-link a {
+  color: #007bff;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: all 0.3s ease;
+}
+
+.info-link a:hover {
+  color: #0056b3;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
 }
 
 .mode-selector {
@@ -316,6 +337,10 @@ select:focus {
     font-size: 16px;
     padding: 16px 18px;
   }
+  
+  .info-link a {
+    font-size: 15px;
+  }
 }
 
 /* Light theme optimization (removing dark mode) */
@@ -371,6 +396,14 @@ select:focus {
     background: #f8f9fa;
     border-color: #007bff;
     color: #007bff;
+  }
+  
+  .info-link a {
+    color: #007bff;
+  }
+  
+  .info-link a:hover {
+    color: #0056b3;
   }
 }
 
