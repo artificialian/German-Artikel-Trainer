@@ -87,7 +87,7 @@ const GITHUB_CONFIG = {
 // Chart image mappings
 const CHART_IMAGES = {
   definite: 'definite-articles-chart.png',
-  indefinite: 'definite-articles-chart.png', // You might want to create a separate image for indefinite articles
+  indefinite: 'indefinite-articles-chart.png', // You might want to create a separate image for indefinite articles
   personal: 'personalpronomen-chart.png',
   possessive: 'possessive-chart.png'
 };
