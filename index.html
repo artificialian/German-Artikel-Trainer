@@ -1,20 +1,17 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>German Artikel Trainer</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
     <h1>🧠 German Artikel Trainer</h1>
     <p class="subtitle">Master German articles with style</p>
-    <p class="info-link">
-      <a href="https://github.com/artificialian/German-Artikel-Trainer" target="_blank" rel="noopener noreferrer">
-        More about this game →
-      </a>
-    </p>
+
     <div class="mode-selector">
       <label for="modeSelector">Choose your challenge:</label>
       <select id="modeSelector" onchange="getNewQuestion()">
@@ -25,38 +22,48 @@
         <option value="mixed">Gemischt (Alle)</option>
       </select>
     </div>
+
     <div class="question-card">
       <div id="question">Loading...</div>
     </div>
+
     <div class="input-container">
       <input id="answer" placeholder="Your answer..." onkeypress="handleKeyPress(event)">
     </div>
+
     <div class="feedback-container">
       <div id="feedback"></div>
     </div>
+
     <div class="score-container">
       <div class="score-label">Current Streak</div>
       <div id="score">0</div>
     </div>
-    <div class="chart-toggle-container">
-      <button id="chartToggle" onclick="toggleCharts()">📊 Show Charts</button>
-    </div>
-    <div class="chart-container" id="chartContainer" style="display: none;">
-      <div id="chart-content"></div>
-      <div id="chart-links" style="display: none;">
-        <a class="chart-link" href="https://germanwithlaura.com/definite-indefinite-articles/" target="_blank">
-          📘 Bestimmte & Unbestimmte Artikel
-        </a>
-        <a class="chart-link" href="https://www.gradding.com/blog/german/possessive-pronouns" target="_blank">
-          🔐 Possessivpronomen
-        </a>
-        <a class="chart-link" href="https://de.tingroom.com/wap/index.php?moduleid=33&itemid=51112" target="_blank">
-          👤 Personalpronomen
-        </a>
-      </div>
-    </div>
+<!-- Add this toggle button -->
+<div class="chart-toggle-container">
+  <button id="chartToggle" onclick="toggleCharts()">📊 Show Charts</button>
+</div>
+
+<!-- Add id="chartContainer" to your existing chart container -->
+<div class="chart-container" id="chartContainer" style="display: none;">
+   <div class="chart-container">
+  <img id="chart-definite" class="chart" src="definite-articles-chart.png" alt="Definite Articles Chart" style="display: none;">
+  <img id="chart-indefinite" class="chart" src="indefinite-articles-chart.png" alt="Indefinite Articles Chart" style="display: none;">
+  <img id="chart-personal" class="chart" src="personalpronomen-chart.png" alt="Personal Pronouns Chart" style="display: none;">
+  <img id="chart-possessive" class="chart" src="possessive-chart.png" alt="Possessive Chart" style="display: none;">
+</div>
+<div id="chart-links" style="display: none;">
+  <a class="chart-link" href="https://germanwithlaura.com/definite-indefinite-articles/" target="_blank">
+    📘 Bestimmte & Unbestimmte Artikel
+  </a>
+  <a class="chart-link" href="https://www.gradding.com/blog/german/possessive-pronouns" target="_blank">
+    🔐 Possessivpronomen
+  </a>
+  <a class="chart-link" href="https://de.tingroom.com/wap/index.php?moduleid=33&itemid=51112" target="_blank">
+    👤 Personalpronomen
+  </a>
+</div>
   </div>
-  
   <script src="script.js"></script>
 </body>
 </html>
