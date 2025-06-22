@@ -77,6 +77,21 @@ const personalPronouns = [
   { pronoun: "sie", case: "Genitiv", article: "ihrer" }
 ];
 
+// GitHub repository configuration
+const GITHUB_CONFIG = {
+  username: 'YOUR_USERNAME', // Replace with your GitHub username
+  repository: 'YOUR_REPOSITORY', // Replace with your repository name
+  branch: 'main' // or 'master' depending on your default branch
+};
+
+// Chart image mappings
+const CHART_IMAGES = {
+  definite: 'definite-articles-chart.png',
+  indefinite: 'definite-articles-chart.png', // You might want to create a separate image for indefinite articles
+  personal: 'personalpronomen-chart.png',
+  possessive: 'possessive-chart.png'
+};
+
 let current = {}; 
 let score = 0;
 
@@ -246,258 +261,59 @@ function toggleCharts() {
   }
 }
 
+function getGitHubImageUrl(imageName) {
+  return `https://raw.githubusercontent.com/${GITHUB_CONFIG.username}/${GITHUB_CONFIG.repository}/${GITHUB_CONFIG.branch}/${imageName}`;
+}
+
 function showCurrentModeChart() {
   const currentMode = document.getElementById('modeSelector').value;
   const chartContent = document.getElementById('chart-content');
   
-  let tableHTML = '';
+  let chartHTML = '';
   
-  switch(currentMode) {
-    case 'definite':
-      tableHTML = `
-        <h3>Bestimmte Artikel (Definite Articles)</h3>
-        <table class="chart-table">
-          <thead>
-            <tr>
-              <th>Fall</th>
-              <th>Maskulin</th>
-              <th>Feminin</th>
-              <th>Neutrum</th>
-              <th>Plural</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Nominativ</strong></td>
-              <td>der</td>
-              <td>die</td>
-              <td>das</td>
-              <td>die</td>
-            </tr>
-            <tr>
-              <td><strong>Akkusativ</strong></td>
-              <td>den</td>
-              <td>die</td>
-              <td>das</td>
-              <td>die</td>
-            </tr>
-            <tr>
-              <td><strong>Dativ</strong></td>
-              <td>dem</td>
-              <td>der</td>
-              <td>dem</td>
-              <td>den</td>
-            </tr>
-            <tr>
-              <td><strong>Genitiv</strong></td>
-              <td>des</td>
-              <td>der</td>
-              <td>des</td>
-              <td>der</td>
-            </tr>
-          </tbody>
-        </table>
-      `;
-      break;
+  // Get the appropriate chart image for the current mode
+  const imageName = CHART_IMAGES[currentMode];
+  
+  if (imageName) {
+    const imageUrl = getGitHubImageUrl(imageName);
     
-    case 'indefinite':
-      tableHTML = `
-        <h3>Unbestimmte Artikel (Indefinite Articles)</h3>
-        <table class="chart-table">
-          <thead>
-            <tr>
-              <th>Fall</th>
-              <th>Maskulin</th>
-              <th>Feminin</th>
-              <th>Neutrum</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Nominativ</strong></td>
-              <td>ein</td>
-              <td>eine</td>
-              <td>ein</td>
-            </tr>
-            <tr>
-              <td><strong>Akkusativ</strong></td>
-              <td>einen</td>
-              <td>eine</td>
-              <td>ein</td>
-            </tr>
-            <tr>
-              <td><strong>Dativ</strong></td>
-              <td>einem</td>
-              <td>einer</td>
-              <td>einem</td>
-            </tr>
-            <tr>
-              <td><strong>Genitiv</strong></td>
-              <td>eines</td>
-              <td>einer</td>
-              <td>eines</td>
-            </tr>
-          </tbody>
-        </table>
-      `;
-      break;
+    // Create appropriate title based on mode
+    let title = '';
+    switch(currentMode) {
+      case 'definite':
+        title = 'Bestimmte Artikel (Definite Articles)';
+        break;
+      case 'indefinite':
+        title = 'Unbestimmte Artikel (Indefinite Articles)';
+        break;
+      case 'personal':
+        title = 'Personalpronomen (Personal Pronouns)';
+        break;
+      case 'possessive':
+        title = 'Possessivpronomen (Possessive Pronouns)';
+        break;
+    }
     
-    case 'personal':
-      tableHTML = `
-        <h3>Personalpronomen (Personal Pronouns)</h3>
-        <table class="chart-table">
-          <thead>
-            <tr>
-              <th>Pronoun</th>
-              <th>Nominativ</th>
-              <th>Akkusativ</th>
-              <th>Dativ</th>
-              <th>Genitiv</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>ich</strong></td>
-              <td>ich</td>
-              <td>mich</td>
-              <td>mir</td>
-              <td>meiner</td>
-            </tr>
-            <tr>
-              <td><strong>du</strong></td>
-              <td>du</td>
-              <td>dich</td>
-              <td>dir</td>
-              <td>deiner</td>
-            </tr>
-            <tr>
-              <td><strong>er</strong></td>
-              <td>er</td>
-              <td>ihn</td>
-              <td>ihm</td>
-              <td>seiner</td>
-            </tr>
-            <tr>
-              <td><strong>sie</strong></td>
-              <td>sie</td>
-              <td>sie</td>
-              <td>ihr</td>
-              <td>ihrer</td>
-            </tr>
-            <tr>
-              <td><strong>es</strong></td>
-              <td>es</td>
-              <td>es</td>
-              <td>ihm</td>
-              <td>seiner</td>
-            </tr>
-            <tr>
-              <td><strong>wir</strong></td>
-              <td>wir</td>
-              <td>uns</td>
-              <td>uns</td>
-              <td>unser</td>
-            </tr>
-            <tr>
-              <td><strong>ihr</strong></td>
-              <td>ihr</td>
-              <td>euch</td>
-              <td>euch</td>
-              <td>euer</td>
-            </tr>
-            <tr>
-              <td><strong>sie</strong></td>
-              <td>sie</td>
-              <td>sie</td>
-              <td>ihnen</td>
-              <td>ihrer</td>
-            </tr>
-          </tbody>
-        </table>
-      `;
-      break;
-    
-    case 'possessive':
-      tableHTML = `
-        <h3>Possessivpronomen (Possessive Pronouns)</h3>
-        <p style="margin-bottom: 20px; color: #495057; font-size: 14px;">Examples shown for Nominativ case. Forms change with case and gender.</p>
-        <table class="chart-table">
-          <thead>
-            <tr>
-              <th>Pronoun</th>
-              <th>Maskulin</th>
-              <th>Feminin</th>
-              <th>Neutrum</th>
-              <th>Plural</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>ich</strong></td>
-              <td>mein</td>
-              <td>meine</td>
-              <td>mein</td>
-              <td>meine</td>
-            </tr>
-            <tr>
-              <td><strong>du</strong></td>
-              <td>dein</td>
-              <td>deine</td>
-              <td>dein</td>
-              <td>deine</td>
-            </tr>
-            <tr>
-              <td><strong>er</strong></td>
-              <td>sein</td>
-              <td>seine</td>
-              <td>sein</td>
-              <td>seine</td>
-            </tr>
-            <tr>
-              <td><strong>sie</strong></td>
-              <td>ihr</td>
-              <td>ihre</td>
-              <td>ihr</td>
-              <td>ihre</td>
-            </tr>
-            <tr>
-              <td><strong>es</strong></td>
-              <td>sein</td>
-              <td>seine</td>
-              <td>sein</td>
-              <td>seine</td>
-            </tr>
-            <tr>
-              <td><strong>wir</strong></td>
-              <td>unser</td>
-              <td>unsere</td>
-              <td>unser</td>
-              <td>unsere</td>
-            </tr>
-            <tr>
-              <td><strong>ihr</strong></td>
-              <td>euer</td>
-              <td>eure</td>
-              <td>euer</td>
-              <td>eure</td>
-            </tr>
-            <tr>
-              <td><strong>sie</strong></td>
-              <td>ihr</td>
-              <td>ihre</td>
-              <td>ihr</td>
-              <td>ihre</td>
-            </tr>
-          </tbody>
-        </table>
-      `;
-      break;
-    
-    default:
-      tableHTML = '<p>No chart available for this mode.</p>';
+    chartHTML = `
+      <h3>${title}</h3>
+      <div class="chart-image-container">
+        <img src="${imageUrl}" alt="${title}" class="chart-image" 
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div class="chart-error" style="display:none;">
+          <p>Chart image could not be loaded. Please check:</p>
+          <ul>
+            <li>GitHub repository is public</li>
+            <li>Image file "${imageName}" exists in the repository</li>
+            <li>GITHUB_CONFIG settings are correct</li>
+          </ul>
+        </div>
+      </div>
+    `;
+  } else {
+    chartHTML = '<p>No chart available for this mode.</p>';
   }
   
-  chartContent.innerHTML = tableHTML;
+  chartContent.innerHTML = chartHTML;
   
   // Show chart links
   const chartLinks = document.getElementById('chart-links');
