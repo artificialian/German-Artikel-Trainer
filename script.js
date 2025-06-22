@@ -1,96 +1,84 @@
-// German Artikel Trainer Logic
+// -------------------------
+// 🔠 German Artikel Trainer Logic
+// -------------------------
+
 const definiteArticles = [
-  { type: "Bestimmte", case: "Nominativ", gender: "Maskulin", article: "der" },
-  { type: "Bestimmte", case: "Nominativ", gender: "Feminin", article: "die" },
-  { type: "Bestimmte", case: "Nominativ", gender: "Neutrum", article: "das" },
-  { type: "Bestimmte", case: "Nominativ", gender: "Plural", article: "die" },
+{ type: "Bestimmte", case: "Nominativ", gender: "Maskulin", article: "der" },
+{ type: "Bestimmte", case: "Nominativ", gender: "Feminin", article: "die" },
+{ type: "Bestimmte", case: "Nominativ", gender: "Neutrum", article: "das" },
+{ type: "Bestimmte", case: "Nominativ", gender: "Plural", article: "die" },
 
-  { type: "Bestimmte", case: "Akkusativ", gender: "Maskulin", article: "den" },
-  { type: "Bestimmte", case: "Akkusativ", gender: "Feminin", article: "die" },
-  { type: "Bestimmte", case: "Akkusativ", gender: "Neutrum", article: "das" },
-  { type: "Bestimmte", case: "Akkusativ", gender: "Plural", article: "die" },
+{ type: "Bestimmte", case: "Akkusativ", gender: "Maskulin", article: "den" },
+{ type: "Bestimmte", case: "Akkusativ", gender: "Feminin", article: "die" },
+{ type: "Bestimmte", case: "Akkusativ", gender: "Neutrum", article: "das" },
+{ type: "Bestimmte", case: "Akkusativ", gender: "Plural", article: "die" },
 
-  { type: "Bestimmte", case: "Dativ", gender: "Maskulin", article: "dem" },
-  { type: "Bestimmte", case: "Dativ", gender: "Feminin", article: "der" },
-  { type: "Bestimmte", case: "Dativ", gender: "Neutrum", article: "dem" },
-  { type: "Bestimmte", case: "Dativ", gender: "Plural", article: "den" },
+{ type: "Bestimmte", case: "Dativ", gender: "Maskulin", article: "dem" },
+{ type: "Bestimmte", case: "Dativ", gender: "Feminin", article: "der" },
+{ type: "Bestimmte", case: "Dativ", gender: "Neutrum", article: "dem" },
+{ type: "Bestimmte", case: "Dativ", gender: "Plural", article: "den" },
 
-  { type: "Bestimmte", case: "Genitiv", gender: "Maskulin", article: "des" },
-  { type: "Bestimmte", case: "Genitiv", gender: "Feminin", article: "der" },
-  { type: "Bestimmte", case: "Genitiv", gender: "Neutrum", article: "des" },
-  { type: "Bestimmte", case: "Genitiv", gender: "Plural", article: "der" },
+{ type: "Bestimmte", case: "Genitiv", gender: "Maskulin", article: "des" },
+{ type: "Bestimmte", case: "Genitiv", gender: "Feminin", article: "der" },
+{ type: "Bestimmte", case: "Genitiv", gender: "Neutrum", article: "des" },
+{ type: "Bestimmte", case: "Genitiv", gender: "Plural", article: "der" },
 ];
 
 const indefiniteArticles = [
-  { type: "Unbestimmte", case: "Nominativ", gender: "Maskulin", article: "ein" },
-  { type: "Unbestimmte", case: "Nominativ", gender: "Feminin", article: "eine" },
-  { type: "Unbestimmte", case: "Nominativ", gender: "Neutrum", article: "ein" },
+{ type: "Unbestimmte", case: "Nominativ", gender: "Maskulin", article: "ein" },
+{ type: "Unbestimmte", case: "Nominativ", gender: "Feminin", article: "eine" },
+{ type: "Unbestimmte", case: "Nominativ", gender: "Neutrum", article: "ein" },
 
-  { type: "Unbestimmte", case: "Akkusativ", gender: "Maskulin", article: "einen" },
-  { type: "Unbestimmte", case: "Akkusativ", gender: "Feminin", article: "eine" },
-  { type: "Unbestimmte", case: "Akkusativ", gender: "Neutrum", article: "ein" },
+{ type: "Unbestimmte", case: "Akkusativ", gender: "Maskulin", article: "einen" },
+{ type: "Unbestimmte", case: "Akkusativ", gender: "Feminin", article: "eine" },
+{ type: "Unbestimmte", case: "Akkusativ", gender: "Neutrum", article: "ein" },
 
-  { type: "Unbestimmte", case: "Dativ", gender: "Maskulin", article: "einem" },
-  { type: "Unbestimmte", case: "Dativ", gender: "Feminin", article: "einer" },
-  { type: "Unbestimmte", case: "Dativ", gender: "Neutrum", article: "einem" },
+{ type: "Unbestimmte", case: "Dativ", gender: "Maskulin", article: "einem" },
+{ type: "Unbestimmte", case: "Dativ", gender: "Feminin", article: "einer" },
+{ type: "Unbestimmte", case: "Dativ", gender: "Neutrum", article: "einem" },
 
-  { type: "Unbestimmte", case: "Genitiv", gender: "Maskulin", article: "eines" },
-  { type: "Unbestimmte", case: "Genitiv", gender: "Feminin", article: "einer" },
-  { type: "Unbestimmte", case: "Genitiv", gender: "Neutrum", article: "eines" },
+{ type: "Unbestimmte", case: "Genitiv", gender: "Maskulin", article: "eines" },
+{ type: "Unbestimmte", case: "Genitiv", gender: "Feminin", article: "einer" },
+{ type: "Unbestimmte", case: "Genitiv", gender: "Neutrum", article: "eines" },
 ];
 
 const personalPronouns = [
-  { pronoun: "ich", case: "Nominativ", article: "ich" },
-  { pronoun: "du", case: "Nominativ", article: "du" },
-  { pronoun: "er", case: "Nominativ", article: "er" },
-  { pronoun: "sie", case: "Nominativ", article: "sie" },
-  { pronoun: "es", case: "Nominativ", article: "es" },
-  { pronoun: "wir", case: "Nominativ", article: "wir" },
-  { pronoun: "ihr", case: "Nominativ", article: "ihr" },
-  { pronoun: "sie", case: "Nominativ", article: "sie" },
+{ pronoun: "ich", case: "Nominativ", article: "ich" },
+{ pronoun: "du", case: "Nominativ", article: "du" },
+{ pronoun: "er", case: "Nominativ", article: "er" },
+{ pronoun: "sie", case: "Nominativ", article: "sie" },
+{ pronoun: "es", case: "Nominativ", article: "es" },
+{ pronoun: "wir", case: "Nominativ", article: "wir" },
+{ pronoun: "ihr", case: "Nominativ", article: "ihr" },
+{ pronoun: "sie", case: "Nominativ", article: "sie" },
 
-  { pronoun: "ich", case: "Akkusativ", article: "mich" },
-  { pronoun: "du", case: "Akkusativ", article: "dich" },
-  { pronoun: "er", case: "Akkusativ", article: "ihn" },
-  { pronoun: "sie", case: "Akkusativ", article: "sie" },
-  { pronoun: "es", case: "Akkusativ", article: "es" },
-  { pronoun: "wir", case: "Akkusativ", article: "uns" },
-  { pronoun: "ihr", case: "Akkusativ", article: "euch" },
-  { pronoun: "sie", case: "Akkusativ", article: "sie" },
+{ pronoun: "ich", case: "Akkusativ", article: "mich" },
+{ pronoun: "du", case: "Akkusativ", article: "dich" },
+{ pronoun: "er", case: "Akkusativ", article: "ihn" },
+{ pronoun: "sie", case: "Akkusativ", article: "sie" },
+{ pronoun: "es", case: "Akkusativ", article: "es" },
+{ pronoun: "wir", case: "Akkusativ", article: "uns" },
+{ pronoun: "ihr", case: "Akkusativ", article: "euch" },
+{ pronoun: "sie", case: "Akkusativ", article: "sie" },
 
-  { pronoun: "ich", case: "Dativ", article: "mir" },
-  { pronoun: "du", case: "Dativ", article: "dir" },
-  { pronoun: "er", case: "Dativ", article: "ihm" },
-  { pronoun: "sie", case: "Dativ", article: "ihr" },
-  { pronoun: "es", case: "Dativ", article: "ihm" },
-  { pronoun: "wir", case: "Dativ", article: "uns" },
-  { pronoun: "ihr", case: "Dativ", article: "euch" },
-  { pronoun: "sie", case: "Dativ", article: "ihnen" },
+{ pronoun: "ich", case: "Dativ", article: "mir" },
+{ pronoun: "du", case: "Dativ", article: "dir" },
+{ pronoun: "er", case: "Dativ", article: "ihm" },
+{ pronoun: "sie", case: "Dativ", article: "ihr" },
+{ pronoun: "es", case: "Dativ", article: "ihm" },
+{ pronoun: "wir", case: "Dativ", article: "uns" },
+{ pronoun: "ihr", case: "Dativ", article: "euch" },
+{ pronoun: "sie", case: "Dativ", article: "ihnen" },
 
-  { pronoun: "ich", case: "Genitiv", article: "meiner" },
-  { pronoun: "du", case: "Genitiv", article: "deiner" },
-  { pronoun: "er", case: "Genitiv", article: "seiner" },
-  { pronoun: "sie", case: "Genitiv", article: "ihrer" },
-  { pronoun: "es", case: "Genitiv", article: "seiner" },
-  { pronoun: "wir", case: "Genitiv", article: "unser" },
-  { pronoun: "ihr", case: "Genitiv", article: "euer" },
-  { pronoun: "sie", case: "Genitiv", article: "ihrer" }
+{ pronoun: "ich", case: "Genitiv", article: "meiner" },
+{ pronoun: "du", case: "Genitiv", article: "deiner" },
+{ pronoun: "er", case: "Genitiv", article: "seiner" },
+{ pronoun: "sie", case: "Genitiv", article: "ihrer" },
+{ pronoun: "es", case: "Genitiv", article: "seiner" },
+{ pronoun: "wir", case: "Genitiv", article: "unser" },
+{ pronoun: "ihr", case: "Genitiv", article: "euer" },
+{ pronoun: "sie", case: "Genitiv", article: "ihrer" }
 ];
-
-// GitHub repository configuration
-const GITHUB_CONFIG = {
-  username: 'artificialian', // Replace with your GitHub username
-  repository: 'German-Artikel-Trainer', // Replace with your repository name
-  branch: 'main' // or 'master' depending on your default branch
-};
-
-// Chart image mappings
-const CHART_IMAGES = {
-  definite: 'definite-articles-chart.png',
-  indefinite: 'indefinite-articles-chart.png', // You might want to create a separate image for indefinite articles
-  personal: 'personalpronomen-chart.png',
-  possessive: 'possessive-chart.png'
-};
 
 let current = {}; 
 let score = 0;
@@ -98,8 +86,13 @@ let score = 0;
 function getNewQuestion() {
   const mode = document.getElementById("modeSelector").value;
 
-  // Hide charts whenever mode is switched or new question is generated
-  hideCharts();
+  // Update charts if they're currently visible (only for non-mixed modes)
+  const chartContainer = document.getElementById('chartContainer');
+  if (chartContainer && chartContainer.style.display === 'block') {
+    if (mode !== 'mixed') {
+      showCurrentModeChart();
+    }
+  }
 
   let pool = [];
   if (mode === "definite") {
@@ -163,7 +156,7 @@ function checkAnswer() {
   if (userAnswer === "") {
     feedback.textContent = "⚠️ Please enter an answer!";
     feedback.classList.add("show", "incorrect");
-    return;
+    return; // Exit the function early, don't proceed with checking
   }
 
   if (userAnswer === current.article) {
@@ -210,7 +203,7 @@ function generatePossessive() {
     Genitiv: {
       Maskulin: { ich: "meines", du: "deines", er: "seines", sie: "ihres", es: "seines", wir: "unseres", ihr: "eures", sie: "ihres" },
       Feminin: { ich: "meiner", du: "deiner", er: "seiner", sie: "ihrer", es: "seiner", wir: "unserer", ihr: "eurer", sie: "ihrer" },
-      Neutrum: { ich: "meines", du: "deines", er: "seines", sie: "ihres", es: "seines", wir: "unseres", ihr: "eures", sie: "ihres" },
+      Neutrum: { ich: "eines", du: "deines", er: "seines", sie: "ihres", es: "seines", wir: "unseres", ihr: "eures", sie: "ihres" },
       Plural: { ich: "meiner", du: "deiner", er: "seiner", sie: "ihrer", es: "seiner", wir: "unserer", ihr: "eurer", sie: "ihrer" }
     }
   };
@@ -226,23 +219,11 @@ function generatePossessive() {
   return [{ type: "Possessiv", case: caseChoice, gender: genderChoice, pronoun: pronounChoice, article }];
 }
 
-function hideCharts() {
-  const chartContainer = document.getElementById('chartContainer');
-  const toggleButton = document.getElementById('chartToggle');
-  
-  if (chartContainer) {
-    chartContainer.style.display = 'none';
-  }
-  
-  if (toggleButton) {
-    toggleButton.textContent = '📊 Show Charts';
-    toggleButton.classList.remove('active');
-  }
-}
-
+// Toggle function for showing/hiding charts (only for non-mixed modes)
 function toggleCharts() {
   const currentMode = document.getElementById('modeSelector').value;
   
+  // Don't allow toggling for mixed mode
   if (currentMode === 'mixed') {
     return;
   }
@@ -251,101 +232,84 @@ function toggleCharts() {
   const toggleButton = document.getElementById('chartToggle');
   
   if (chartContainer.style.display === 'none' || chartContainer.style.display === '') {
+    // Show charts
     chartContainer.style.display = 'block';
-    toggleButton.textContent = '📊 Hide Charts';
+    toggleButton.textContent = 'Hide Charts';
     toggleButton.classList.add('active');
     
+    // Show the appropriate chart based on current mode
     showCurrentModeChart();
   } else {
-    hideCharts();
+    // Hide charts
+    chartContainer.style.display = 'none';
+    toggleButton.textContent = 'Show Charts';
+    toggleButton.classList.remove('active');
   }
 }
 
-function getGitHubImageUrl(imageName) {
-  return `https://raw.githubusercontent.com/${GITHUB_CONFIG.username}/${GITHUB_CONFIG.repository}/${GITHUB_CONFIG.branch}/${imageName}`;
-}
-
+// Function to show the correct chart based on current mode
 function showCurrentModeChart() {
   const currentMode = document.getElementById('modeSelector').value;
-  const chartContent = document.getElementById('chart-content');
   
-  let chartHTML = '';
+  // Hide all charts and links first
+  document.querySelectorAll('.chart').forEach(chart => {
+    chart.style.display = 'none';
+  });
   
-  // Get the appropriate chart image for the current mode
-  const imageName = CHART_IMAGES[currentMode];
-  
-  if (imageName) {
-    const imageUrl = getGitHubImageUrl(imageName);
-    
-    // Create appropriate title based on mode
-    let title = '';
-    switch(currentMode) {
-      case 'definite':
-        title = 'Bestimmte Artikel (Definite Articles)';
-        break;
-      case 'indefinite':
-        title = 'Unbestimmte Artikel (Indefinite Articles)';
-        break;
-      case 'personal':
-        title = 'Personalpronomen (Personal Pronouns)';
-        break;
-      case 'possessive':
-        title = 'Possessivpronomen (Possessive Pronouns)';
-        break;
-    }
-    
-    chartHTML = `
-      <h3>${title}</h3>
-      <div class="chart-image-container">
-        <img src="${imageUrl}" alt="${title}" class="chart-image" 
-             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-        <div class="chart-error" style="display:none;">
-          <p>Chart image could not be loaded. Please check:</p>
-          <ul>
-            <li>GitHub repository is public</li>
-            <li>Image file "${imageName}" exists in the repository</li>
-            <li>GITHUB_CONFIG settings are correct</li>
-          </ul>
-        </div>
-      </div>
-    `;
-  } else {
-    chartHTML = '<p>No chart available for this mode.</p>';
-  }
-  
-  chartContent.innerHTML = chartHTML;
-  
-  // Show chart links
   const chartLinks = document.getElementById('chart-links');
-  if (chartLinks) {
-    chartLinks.style.display = 'block';
+  if (chartLinks) chartLinks.style.display = 'none';
+  
+  // Show the appropriate chart (no links for non-mixed modes)
+  switch(currentMode) {
+    case 'definite':
+      const defChart = document.getElementById('chart-definite');
+      if (defChart) defChart.style.display = 'block';
+      break;
+    case 'indefinite':
+      const indefChart = document.getElementById('chart-indefinite');
+      if (indefChart) indefChart.style.display = 'block';
+      break;
+    case 'personal':
+      const persChart = document.getElementById('chart-personal');
+      if (persChart) persChart.style.display = 'block';
+      break;
+    case 'possessive':
+      const possChart = document.getElementById('chart-possessive');
+      if (possChart) possChart.style.display = 'block';
+      break;
   }
 }
 
+// Function to update toggle button visibility based on current mode
 function updateToggleVisibility() {
   const currentMode = document.getElementById('modeSelector').value;
-  const toggleButton = document.getElementById('chartToggle');
+  const toggleContainer = document.querySelector('.chart-toggle-container');
   const chartContainer = document.getElementById('chartContainer');
+  const chartLinks = document.getElementById('chart-links');
   
   if (currentMode === 'mixed') {
-    // Hide toggle button and charts for mixed mode
-    toggleButton.style.display = 'none';
-    chartContainer.style.display = 'none';
+    // Hide toggle button for mixed mode
+    if (toggleContainer) toggleContainer.style.display = 'none';
+    
+    // Always show links for mixed mode, hide charts
+    if (chartLinks) chartLinks.style.display = 'block';
+    if (chartContainer) {
+      chartContainer.style.display = 'block';
+      // Hide all individual charts
+      document.querySelectorAll('.chart').forEach(chart => {
+        chart.style.display = 'none';
+      });
+    }
   } else {
     // Show toggle button for other modes
-    toggleButton.style.display = 'inline-block';
+    if (toggleContainer) toggleContainer.style.display = 'block';
+    
+    // Always hide links for non-mixed modes
+    if (chartLinks) chartLinks.style.display = 'none';
   }
 }
 
-// Initialize the game when the page loads
+// Initialize the app when the page loads
 document.addEventListener('DOMContentLoaded', function() {
   getNewQuestion();
-  
-  // Focus on the answer input
-  document.getElementById('answer').focus();
 });
-
-// Add click handler for the submit button (if you want to add one)
-function submitAnswer() {
-  checkAnswer();
-}
