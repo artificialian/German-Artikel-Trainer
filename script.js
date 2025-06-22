@@ -79,8 +79,8 @@ const personalPronouns = [
 
 // GitHub repository configuration
 const GITHUB_CONFIG = {
-  username: 'YOUR_USERNAME', // Replace with your GitHub username
-  repository: 'YOUR_REPOSITORY', // Replace with your repository name
+  username: 'artificialian', // Replace with your GitHub username
+  repository: 'German-Artikel-Trainer', // Replace with your repository name
   branch: 'main' // or 'master' depending on your default branch
 };
 
