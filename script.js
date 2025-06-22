@@ -86,13 +86,8 @@ let score = 0;
 function getNewQuestion() {
   const mode = document.getElementById("modeSelector").value;
 
-  // Update charts if they're currently visible (only for non-mixed modes)
-  const chartContainer = document.getElementById('chartContainer');
-  if (chartContainer && chartContainer.style.display === 'block') {
-    if (mode !== 'mixed') {
-      showCurrentModeChart();
-    }
-  }
+  // Hide charts whenever mode is switched or new question is generated
+  hideCharts();
 
   let pool = [];
   if (mode === "definite") {
@@ -203,7 +198,7 @@ function generatePossessive() {
     Genitiv: {
       Maskulin: { ich: "meines", du: "deines", er: "seines", sie: "ihres", es: "seines", wir: "unseres", ihr: "eures", sie: "ihres" },
       Feminin: { ich: "meiner", du: "deiner", er: "seiner", sie: "ihrer", es: "seiner", wir: "unserer", ihr: "eurer", sie: "ihrer" },
-      Neutrum: { ich: "eines", du: "deines", er: "seines", sie: "ihres", es: "seines", wir: "unseres", ihr: "eures", sie: "ihres" },
+      Neutrum: { ich: "meines", du: "deines", er: "seines", sie: "ihres", es: "seines", wir: "unseres", ihr: "eures", sie: "ihres" },
       Plural: { ich: "meiner", du: "deiner", er: "seiner", sie: "ihrer", es: "seiner", wir: "unserer", ihr: "eurer", sie: "ihrer" }
     }
   };
@@ -217,6 +212,26 @@ function generatePossessive() {
   const article = chart[caseChoice][genderChoice][pronounChoice];
 
   return [{ type: "Possessiv", case: caseChoice, gender: genderChoice, pronoun: pronounChoice, article }];
+}
+
+// Function to hide charts and reset toggle button
+function hideCharts() {
+  const chartContainer = document.getElementById('chartContainer');
+  const toggleButton = document.getElementById('chartToggle');
+  
+  if (chartContainer) {
+    chartContainer.style.display = 'none';
+  }
+  
+  if (toggleButton) {
+    toggleButton.textContent = '📊 Show Charts';
+    toggleButton.classList.remove('active');
+  }
+  
+  // Hide all individual charts
+  document.querySelectorAll('.chart').forEach(chart => {
+    chart.style.display = 'none';
+  });
 }
 
 // Toggle function for showing/hiding charts (only for non-mixed modes)
@@ -234,16 +249,14 @@ function toggleCharts() {
   if (chartContainer.style.display === 'none' || chartContainer.style.display === '') {
     // Show charts
     chartContainer.style.display = 'block';
-    toggleButton.textContent = 'Hide Charts';
+    toggleButton.textContent = '📊 Hide Charts';
     toggleButton.classList.add('active');
     
     // Show the appropriate chart based on current mode
     showCurrentModeChart();
   } else {
     // Hide charts
-    chartContainer.style.display = 'none';
-    toggleButton.textContent = 'Show Charts';
-    toggleButton.classList.remove('active');
+    hideCharts();
   }
 }
 
@@ -311,5 +324,7 @@ function updateToggleVisibility() {
 
 // Initialize the app when the page loads
 document.addEventListener('DOMContentLoaded', function() {
+  // Ensure charts are hidden on initial load
+  hideCharts();
   getNewQuestion();
 });
