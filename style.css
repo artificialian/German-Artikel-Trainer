@@ -415,3 +415,28 @@ select:focus {
   border-radius: 16px;
   border: 2px solid #e9ecef;
 }
+.chart-image-container {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.chart-image {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.chart-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 15px;
+  border-radius: 4px;
+  margin: 10px 0;
+}
+
+.chart-error ul {
+  margin: 10px 0;
+  padding-left: 20px;
+}
