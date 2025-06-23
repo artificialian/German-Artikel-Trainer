@@ -268,17 +268,15 @@ function handleModeChange() {
   score = 0;
   scoreDiv.textContent = score;
 
-  // Hide all charts and toggle if mode is mixed
   if (mode === "mixed") {
+    chartToggleButton.style.display = "none";
     chartContainer.style.display = "none";
     chartLinks.style.display = "none";
-    chartToggleButton.style.display = "none"; // 🔴 HIDE THE BUTTON
   } else {
-    chartToggleButton.style.display = "inline-block"; // ✅ SHOW button for other modes
+    chartToggleButton.style.display = "inline-block";
+    chartToggleButton.textContent = "Show Charts";
     chartContainer.style.display = "none";
     chartLinks.style.display = "none";
-    chartToggleButton.classList.remove("active");
-    chartToggleButton.textContent = "Show Charts";
   }
 
   getNewQuestion();
