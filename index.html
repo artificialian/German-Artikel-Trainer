@@ -45,24 +45,23 @@
 </div>
 
 <!-- Add id="chartContainer" to your existing chart container -->
-<div class="chart-container" id="chartContainer" style="display: none;">
-   <div class="chart-container">
+<div class="chart-toggle-container">
+  <button id="chartToggle">Show Charts</button>
+</div>
+
+<div id="chartContainer" style="display: none;">
   <img id="chart-definite" class="chart" src="definite-articles-chart.png" alt="Definite Articles Chart" style="display: none;">
   <img id="chart-indefinite" class="chart" src="indefinite-articles-chart.png" alt="Indefinite Articles Chart" style="display: none;">
   <img id="chart-personal" class="chart" src="personalpronomen-chart.png" alt="Personal Pronouns Chart" style="display: none;">
   <img id="chart-possessive" class="chart" src="possessive-chart.png" alt="Possessive Chart" style="display: none;">
+
+  <div id="chart-links" style="display: none;">
+    <a href="https://germanwithlaura.com/definite-indefinite-articles/" target="_blank">📘 Bestimmte & Unbestimmte Artikel</a>
+    <a href="https://www.gradding.com/blog/german/possessive-pronouns" target="_blank">🔐 Possessivpronomen</a>
+    <a href="https://de.tingroom.com/wap/index.php?moduleid=33&itemid=51112" target="_blank">👤 Personalpronomen</a>
+  </div>
 </div>
-<div id="chart-links" style="display: none;">
-  <a class="chart-link" href="https://germanwithlaura.com/definite-indefinite-articles/" target="_blank">
-    📘 Bestimmte & Unbestimmte Artikel
-  </a>
-  <a class="chart-link" href="https://www.gradding.com/blog/german/possessive-pronouns" target="_blank">
-    🔐 Possessivpronomen
-  </a>
-  <a class="chart-link" href="https://de.tingroom.com/wap/index.php?moduleid=33&itemid=51112" target="_blank">
-    👤 Personalpronomen
-  </a>
-</div>
+    
   </div>
   <script src="script.js"></script>
 </body>
