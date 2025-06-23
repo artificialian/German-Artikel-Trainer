@@ -231,34 +231,38 @@ function handleKeyPress(event) {
 
 // Chart toggling
 function toggleCharts() {
-  if (mode === "mixed") return;
-  
   let isVisible = chartContainer.style.display !== "none";
   
   if (isVisible) {
     // Hide charts
     chartContainer.style.display = "none";
-    chartLinks.style.display = "none";
     chartToggleButton.classList.remove("active");
     chartToggleButton.textContent = "Show Charts";
   } else {
-    // Show charts
+    // Show charts and links
     chartContainer.style.display = "block";
-    chartLinks.style.display = "block";
     chartToggleButton.classList.add("active");
     chartToggleButton.textContent = "Hide Charts";
     
-    // Hide all charts first
+    // Hide all charts and links first
     chartDefinite.style.display = "none";
     chartIndefinite.style.display = "none";
     chartPersonal.style.display = "none";
     chartPossessive.style.display = "none";
+    chartLinks.style.display = "none";
 
-    // Show the relevant chart
-    if (mode === "definite") chartDefinite.style.display = "block";
-    if (mode === "indefinite") chartIndefinite.style.display = "block";
-    if (mode === "personal") chartPersonal.style.display = "block";
-    if (mode === "possessive") chartPossessive.style.display = "block";
+    // Show the relevant chart or links based on mode
+    if (mode === "definite") {
+      chartDefinite.style.display = "block";
+    } else if (mode === "indefinite") {
+      chartIndefinite.style.display = "block";
+    } else if (mode === "personal") {
+      chartPersonal.style.display = "block";
+    } else if (mode === "possessive") {
+      chartPossessive.style.display = "block";
+    } else if (mode === "mixed") {
+      chartLinks.style.display = "block";
+    }
   }
 }
 
@@ -268,20 +272,16 @@ function handleModeChange() {
   score = 0;
   scoreDiv.textContent = score;
 
-  if (mode === "mixed") {
-    chartToggleButton.style.display = "none";
-    chartContainer.style.display = "none";
-    chartLinks.style.display = "none";
-  } else {
-    chartToggleButton.style.display = "inline-block";
-    chartToggleButton.textContent = "Show Charts";
-    chartContainer.style.display = "none";
-    chartLinks.style.display = "none";
-  }
+  // Always show the chart toggle button
+  chartToggleButton.style.display = "inline-block";
+  
+  // Reset charts display
+  chartContainer.style.display = "none";
+  chartToggleButton.classList.remove("active");
+  chartToggleButton.textContent = "Show Charts";
 
   getNewQuestion();
 }
-
 
 // Initialize everything when DOM is loaded
 window.onload = function() {
@@ -294,6 +294,5 @@ window.onload = function() {
   
   // Set initial state
   chartContainer.style.display = "none";
-  chartLinks.style.display = "none";
   getNewQuestion();
 };
