@@ -239,19 +239,18 @@ function toggleCharts() {
     chartToggleButton.classList.remove("active");
     chartToggleButton.textContent = "Show Charts";
   } else {
-    // Show charts and links
+    // Show charts
     chartContainer.style.display = "block";
     chartToggleButton.classList.add("active");
     chartToggleButton.textContent = "Hide Charts";
     
-    // Hide all charts and links first
+    // Hide all charts first
     chartDefinite.style.display = "none";
     chartIndefinite.style.display = "none";
     chartPersonal.style.display = "none";
     chartPossessive.style.display = "none";
-    chartLinks.style.display = "none";
 
-    // Show the relevant chart or links based on mode
+    // Show the relevant chart based on mode
     if (mode === "definite") {
       chartDefinite.style.display = "block";
     } else if (mode === "indefinite") {
@@ -260,8 +259,6 @@ function toggleCharts() {
       chartPersonal.style.display = "block";
     } else if (mode === "possessive") {
       chartPossessive.style.display = "block";
-    } else if (mode === "mixed") {
-      chartLinks.style.display = "block";
     }
   }
 }
@@ -272,13 +269,21 @@ function handleModeChange() {
   score = 0;
   scoreDiv.textContent = score;
 
-  // Always show the chart toggle button
-  chartToggleButton.style.display = "inline-block";
-  
-  // Reset charts display
-  chartContainer.style.display = "none";
-  chartToggleButton.classList.remove("active");
-  chartToggleButton.textContent = "Show Charts";
+  if (mode === "mixed") {
+    // Hide chart toggle button and show links for mixed mode
+    chartToggleButton.style.display = "none";
+    chartContainer.style.display = "none";
+    chartLinks.style.display = "block";
+  } else {
+    // Show chart toggle button and hide links for other modes
+    chartToggleButton.style.display = "inline-block";
+    chartLinks.style.display = "none";
+    
+    // Reset charts display
+    chartContainer.style.display = "none";
+    chartToggleButton.classList.remove("active");
+    chartToggleButton.textContent = "Show Charts";
+  }
 
   getNewQuestion();
 }
@@ -294,5 +299,6 @@ window.onload = function() {
   
   // Set initial state
   chartContainer.style.display = "none";
+  chartLinks.style.display = "none";
   getNewQuestion();
 };
