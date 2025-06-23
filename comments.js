@@ -1,5 +1,64 @@
-//index.html
+/*<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>German Artikel Trainer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>🧠 German Artikel Trainer</h1>
+    <p class="subtitle">Master German articles with style</p>
+    <div class="mode-selector">
+      <label for="modeSelector">Choose your challenge:</label>
+      <select id="modeSelector">
+        <option value="definite">Bestimmte Artikel</option>
+        <option value="indefinite">Unbestimmte Artikel</option>
+        <option value="possessive">Possessivpronomen</option>
+        <option value="personal">Personalpronomen</option>
+        <option value="mixed">Gemischt (Alle)</option>
+      </select>
+    </div>
+    <div class="question-card">
+      <div id="question">Loading...</div>
+    </div>
+    <div class="input-container">
+      <input id="answer" placeholder="Your answer...">
+    </div>
+    <div class="feedback-container">
+      <div id="feedback"></div>
+    </div>
+    <div class="score-container">
+      <div class="score-label">Current Streak</div>
+      <div id="score">0</div>
+    </div>
 
+    <!-- Single toggle button -->
+    <div class="chart-toggle-container">
+      <button id="chartToggle">Show Charts</button>
+    </div>
+
+    <!-- Chart container -->
+    <div id="chartContainer" style="display: none;">
+      <img id="chart-definite" class="chart" src="definite-articles-chart.png" alt="Definite Articles Chart" style="display: none;">
+      <img id="chart-indefinite" class="chart" src="indefinite-articles-chart.png" alt="Indefinite Articles Chart" style="display: none;">
+      <img id="chart-personal" class="chart" src="personalpronomen-chart.png" alt="Personal Pronouns Chart" style="display: none;">
+      <img id="chart-possessive" class="chart" src="possessive-chart.png" alt="Possessive Chart" style="display: none;">
+    </div>
+
+    <!-- Links for mixed mode - always visible when in mixed mode -->
+    <div id="chart-links" style="display: none;">
+  <a href="https://germanwithlaura.com/definite-indefinite-articles/" target="_blank" class="chart-link">📘 Bestimmte & Unbestimmte Artikel</a>
+  <a href="https://www.gradding.com/blog/german/possessive-pronouns" target="_blank" class="chart-link">🔐 Possessivpronomen</a>
+  <a href="https://de.tingroom.com/wap/index.php?moduleid=33&itemid=51112" target="_blank" class="chart-link">👤 Personalpronomen</a>
+</div>
+    
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
+end
 
 
 //script.js
